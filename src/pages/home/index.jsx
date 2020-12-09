@@ -1,17 +1,10 @@
 import { ContainerHome, Banner } from "./style";
 import Button from "@material-ui/core/Button";
 import { useHistory } from "react-router-dom";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
 
-import { getRequestThunk } from "../../store/modules/thunks";
 
 const Home = () => {
   const history = useHistory();
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getRequestThunk());
-  }, []);
   return (
     <ContainerHome>
       <Banner>
