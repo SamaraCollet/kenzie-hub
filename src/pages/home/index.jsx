@@ -1,11 +1,9 @@
 import { ContainerHome, Banner } from "./style";
 
-import Header from "../../components/header";
 
 const Home = () => {
   return (
     <ContainerHome>
-      <Header />
       <Banner>
         <div className="bannerContent">
           <h1>Você também ama codar?</h1>
