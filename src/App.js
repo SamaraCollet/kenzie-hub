@@ -1,4 +1,5 @@
 import { Switch, Route } from "react-router-dom";
+import Home from "./pages/home";
 
 function App() {
   return (
@@ -10,9 +11,10 @@ function App() {
         <Route exact path="/register">
           {/* Page do register */}
         </Route>
-        <Route path="/">{/* Page da home */}</Route>
+        <Route path="/">
+          <Home />
+        </Route>
       </Switch>
-      <div>Olá</div>
     </>
   );
 }
