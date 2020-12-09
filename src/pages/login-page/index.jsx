@@ -1,6 +1,8 @@
 import { TextField, Button } from "@material-ui/core";
 import { Main, Container } from "./styles";
+import {useHistory} from "react-router-dom"
 const Login = () => {
+const history = useHistory()
   return (
     <Main>
       <Container>
@@ -26,6 +28,7 @@ const Login = () => {
           className="input-button-login"
           variant="outlined"
           color="default"
+          onClick={() => history.push("/register")}
         >
           Cadastre-se
         </Button>
