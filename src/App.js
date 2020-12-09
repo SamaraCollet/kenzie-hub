@@ -1,3 +1,4 @@
+import RegisterPage from './pages/register-page'
 import { Switch, Route } from "react-router-dom";
 
 function App() {
@@ -12,7 +13,6 @@ function App() {
         </Route>
         <Route path="/">{/* Page da home */}</Route>
       </Switch>
-      <div>Olá</div>
     </>
   );
 }
