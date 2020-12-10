@@ -47,7 +47,7 @@ const Login = () => {
             error={!!errors.password || !!errors.email}
             helperText={errors.password?.message}
           />
-          <Button type="submit">Entrar</Button>
+          <button type="submit">Entrar</button>
         </form>
         <Button onClick={() => history.push("/register")}>Cadastre-se</Button>
       </Container>
