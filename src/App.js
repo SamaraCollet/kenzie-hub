@@ -13,7 +13,7 @@ function App() {
   const dispatch = useDispatch();
   return (
     <>
-      {/* <Header /> */}
+      <Header />
 
       <Switch>
         <Route exact path="/login">
