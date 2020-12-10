@@ -10,7 +10,7 @@ import { Main, Container } from './styles'
 
 const Login = () => {
   const schema = yup.object().shape({
-    user: yup.string().required("Campo obrigatório"),
+    email: yup.string().required("Campo obrigatório"),
     password: yup.string().required("Campo obrigatório")
   })
 
@@ -21,9 +21,7 @@ const Login = () => {
   const handleForm = value => {
     axios.post("https://kenziehub.me/sessions", {...value})
     .then(res => console.log(res))
-    .catch((err) => {
-      setError("email" , {message: "Usuário ou senha inválidas"})
-    })
+    .catch(err => console.log(err))
   }
 
   return (

@@ -1,4 +1,4 @@
-import { appendErrors, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import Button from '@material-ui/core/Button'
@@ -53,9 +53,7 @@ const RegisterPage = () => {
         axios
         .post(`https://kenziehub.me/users`, {...value})
         .then(res => history.push('/login'))
-        .catch((err) => {
-            console.log(err)
-          });
+        .catch((err) => console.log(err));
     }
     
     return (
