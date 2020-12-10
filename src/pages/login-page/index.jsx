@@ -10,7 +10,7 @@ import { Main, Container } from './styles'
 
 const Login = () => {
   const schema = yup.object().shape({
-    user: yup.string().required("Campo obrigatório"),
+    email: yup.string().required("Campo obrigatório"),
     password: yup.string().required("Campo obrigatório")
   })
 
@@ -45,7 +45,7 @@ const Login = () => {
             error={!!errors.password || !!errors.email}
             helperText={errors.password?.message}
           />
-          <Button type="submit">Entrar</Button>
+          <button type="submit">Entrar</button>
         </form>
         <Button
           onClick={() => history.push("/register")}
