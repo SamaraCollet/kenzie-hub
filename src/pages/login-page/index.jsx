@@ -18,9 +18,14 @@ const Login = () => {
 
   const history = useHistory()
 
+
+
   const handleForm = value => {
     axios.post("https://kenziehub.me/sessions", {...value})
-    .then(res => console.log(res))
+    .then(res =>{
+      window.localStorage.setItem('authToken', res.data.token)
+      console.log("funcionou")})
+    
     .catch((err) => {
       setError("email" , {message: "Usuário ou senha inválidas"})
     })
