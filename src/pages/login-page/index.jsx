@@ -7,7 +7,6 @@ import axios from 'axios'
 import { useHistory } from 'react-router-dom'
 import { Main, Container } from './styles'
 
-
 const Login = () => {
   const schema = yup.object().shape({
     email: yup.string().required("Campo obrigatório"),
