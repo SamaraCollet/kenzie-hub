@@ -22,7 +22,8 @@ const Login = () => {
     axios.post("https://kenziehub.me/sessions", {...value})
     .then(res => console.log(res))
     .catch((err) => {
-      setError("email" , {message: "Usuário ou senha inválidas"})})
+      setError("email" , {message: "Usuário ou senha inválidas"})
+    })
   }
 
   return (
@@ -44,7 +45,7 @@ const Login = () => {
             error={!!errors.password || !!errors.email}
             helperText={errors.password?.message}
           />
-            <Button type="submit">Entrar</Button>
+          <Button type="submit">Entrar</Button>
         </form>
         <Button
           onClick={() => history.push("/register")}
