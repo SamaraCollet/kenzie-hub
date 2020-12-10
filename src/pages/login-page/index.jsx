@@ -1,22 +1,23 @@
-import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from 'yup'
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import axios from 'axios'
-import { useHistory } from 'react-router-dom'
-import { Main, Container } from './styles'
-
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
+import { Main, Container } from "./styles";
 
 const Login = () => {
   const schema = yup.object().shape({
     email: yup.string().required("Campo obrigatório"),
-    password: yup.string().required("Campo obrigatório")
-  })
+    password: yup.string().required("Campo obrigatório"),
+  });
 
-  const { register, handleSubmit, errors, setError } = useForm({ resolver : yupResolver(schema)})
+  const { register, handleSubmit, errors, setError } = useForm({
+    resolver: yupResolver(schema),
+  });
 
-  const history = useHistory()
+  const history = useHistory();
 
 
 
@@ -36,14 +37,14 @@ const Login = () => {
       <Container>
         <h1>Kenzie Hub</h1>
         <form onSubmit={handleSubmit(handleForm)}>
-          <TextField 
+          <TextField
             name="email"
             label="Email"
             inputRef={register}
             error={!!errors.email || !!errors.password}
             helperText={errors.email?.message}
           />
-          <TextField 
+          <TextField
             name="password"
             label="Senha"
             inputRef={register}
@@ -52,11 +53,7 @@ const Login = () => {
           />
           <button type="submit">Entrar</button>
         </form>
-        <Button
-          onClick={() => history.push("/register")}
-        >
-          Cadastre-se
-        </Button>
+        <Button onClick={() => history.push("/register")}>Cadastre-se</Button>
       </Container>
     </Main>
   );
