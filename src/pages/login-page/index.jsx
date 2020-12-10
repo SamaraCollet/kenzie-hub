@@ -9,7 +9,7 @@ import { Main, Container } from "./styles";
 
 const Login = () => {
   const schema = yup.object().shape({
-    user: yup.string().required("Campo obrigatório"),
+    email: yup.string().required("Campo obrigatório"),
     password: yup.string().required("Campo obrigatório"),
   });
 
