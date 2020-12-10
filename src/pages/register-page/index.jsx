@@ -3,6 +3,8 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import Button from '@material-ui/core/Button'
 import { Container, StyledForm, StyledInput } from './styles.jsx'
+import axios from 'axios'
+import { useHistory } from 'react-router-dom'
 
 
 const RegisterPage = () => {
@@ -21,7 +23,7 @@ const RegisterPage = () => {
         bio: yup.string()
         .required("Campo obrigatório"),
 
-        module: yup.string()
+        course_module: yup.string()
         .required("Campo obrigatório"),
 
         contact: yup.string()
@@ -45,8 +47,15 @@ const RegisterPage = () => {
         resolver: yupResolver(schema),
     });
 
+    const history = useHistory()
+
     const handleForm = value => {
-        console.log(value)
+        axios
+        .post(`https://kenziehub.me/users`, {...value})
+        .then(res => history.push('/login'))
+        .catch((err) => {
+            console.log(err)
+          });
     }
     
     return (
@@ -74,11 +83,11 @@ const RegisterPage = () => {
                     helperText={errors.bio?.message}
                 />
                 <StyledInput
-                    name="module"
+                    name="course_module"
                     label="Modulo"
                     inputRef={register}
-                    error={!!errors.module}
-                    helperText={errors.module?.message}
+                    error={!!errors.course_module}
+                    helperText={errors.course_module?.message}
                 />
                 <StyledInput
                     name="contact"

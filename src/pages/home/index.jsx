@@ -1,7 +1,10 @@
 import { ContainerHome, Banner } from "./style";
+import Button from "@material-ui/core/Button";
+import { useHistory } from "react-router-dom";
 
 
 const Home = () => {
+  const history = useHistory();
   return (
     <ContainerHome>
       <Banner>
@@ -12,7 +15,7 @@ const Home = () => {
             Faça parte do grupo! A final, não há limites para o desenvolvimento,
             não é mesmo?
           </p>
-          <button>Bora la!</button>
+          <Button onClick={() => history.push("/register")}>Bora la!</Button>
         </div>
         <div className="imageHome">
           <img src="/assets/imgbanner.jpg" alt="" />
