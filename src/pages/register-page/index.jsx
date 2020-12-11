@@ -61,7 +61,7 @@ const RegisterPage = () => {
     })
     
 
-    const { register, handleSubmit, errors, setError } = useForm({
+    const { register, handleSubmit, errors } = useForm({
         resolver: yupResolver(schema),
     });
 

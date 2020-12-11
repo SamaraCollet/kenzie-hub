@@ -60,7 +60,7 @@ const UserPage = () => {
             onChangeIndex={handleChangeIndex}
           >
             <TabContent value={value} index={0}>
-              <img src={currentUser.avatar_url}/>
+              <img src={currentUser.avatar_url ? currentUser.avatar_url : "/assets/user.png"}/>
               <div>Nome : {currentUser.name}</div>
               <div>Bio : {currentUser.bio}</div>
             </TabContent>

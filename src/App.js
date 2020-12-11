@@ -6,30 +6,36 @@ import Home from "./pages/home";
 import Login from "./pages/login-page";
 import Header from "./components/header";
 import UserPage from './pages/user-page'
+import HeaderLogOut from "./components/header-autenticado";
 import Feed from "./pages/feed-page";
 import PageNotFound from "./pages/page-not-found";
 
 function App() {
   return (
     <>
-      <Header />
       <Switch>
         <Route exact path="/login">
+          <Header />
           <Login />
         </Route>
         <Route exact path="/register">
+          <Header />
           <RegisterPage />
         </Route>
         <Route path="/feed">
-          <Feed />s
+          <Header />
+          <Feed />
         </Route>
         <Route exact path="/user">
+          <Header />
           <UserPage />
         </Route>
         <Route exact path="/">
+          <Header />
           <Home />
         </Route> 
         <Route path="*">
+          <HeaderLogOut />
           <PageNotFound />
         </Route>
       </Switch>
