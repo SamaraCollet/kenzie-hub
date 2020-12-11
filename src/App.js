@@ -20,14 +20,14 @@ function App() {
           <RegisterPage />
         </Route>
         <Route path="/feed">
-          <Feed />
+          <Feed />s
         </Route>
         <Route exact path="/user">
           <UserPage />
         </Route>
         <Route path="/">
           <Home />
-        </Route>
+        </Route> 
       </Switch>
     </>
   );
