@@ -12,12 +12,21 @@ const Header = () => {
     <Container>
       <AppBar position="fixed">
         <Toolbar>
-          <Button color="inherit" onClick={() => history.push("/login")}>
-            Entrar
-          </Button>
-          <Button color="inherit" onClick={() => history.push("/register")}>
-            Cadastre-se
-          </Button>
+          <div className="logo">
+            <img
+              src="/assets/logo.png"
+              alt="logo"
+              onClick={() => history.push("/")}
+            />
+          </div>
+          <div>
+            <Button color="inherit" onClick={() => history.push("/login")}>
+              Entrar
+            </Button>
+            <Button color="inherit" onClick={() => history.push("/register")}>
+              Cadastre-se
+            </Button>
+          </div>
         </Toolbar>
       </AppBar>
     </Container>

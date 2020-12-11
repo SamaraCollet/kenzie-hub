@@ -25,6 +25,7 @@ export const Banner = styled.div`
     margin: 0;
     margin-bottom: 22px;
     text-shadow: 1.6px 1px 1px #1480fb;
+    line-height: 1.2;
   }
   div {
     width: 40vw;
@@ -41,6 +42,7 @@ export const Banner = styled.div`
     border: 2px solid #146dd3;
     border-radius: 10px;
     height: 35px;
+    margin-right: 15px;
   }
   button:focus {
     outline: thin dotted;
@@ -53,6 +55,17 @@ export const Banner = styled.div`
     color: #fff;
     cursor: pointer;
   }
+
+  button:last-child {
+    background-color: #fff;
+    color: #1480fb;
+  }
+
+  button:last-child:hover {
+    background-color: #013b84;
+    color: #fff;
+  }
+
   p {
     line-height: 1.6;
     width: 100%;
