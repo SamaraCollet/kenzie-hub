@@ -31,7 +31,7 @@ const UserPage = () => {
     .get(`https://kenziehub.me/users/${userId}`)
     .then(res => {
       setUser(res)
-      console.log(currentUser)
+      console.log(res)
     })
     .catch(err => console.log(err))
   }
