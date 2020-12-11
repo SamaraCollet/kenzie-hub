@@ -1,13 +1,18 @@
 import { useHistory } from "react-router-dom";
-
 import { Container } from "./style";
-
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
 
-const HeaderLogOut = () => {
+const HeaderLogOut = ({setAuthentication, authentication}) => {
   const history = useHistory();
+
+  const logout = () => {
+    window.localStorage.clear();
+    history.push("/");
+    setAuthentication(false);
+  };
+
   return (
     <Container>
       <AppBar position="fixed">
@@ -20,12 +25,13 @@ const HeaderLogOut = () => {
             />
           </div>
           <div>
-            <Button color="inherit" onClick={() => history.push("/")}>
+            <Button color="inherit" onClick={() => history.push("/user")}>
+              Meu perfil
+            </Button>
+            <Button color="inherit" onClick={logout}>
               Sair
             </Button>
-            {/* <Button color="inherit" onClick={() => history.push("/register")}>
-              Cadastre-se
-            </Button> */}
+
           </div>
         </Toolbar>
       </AppBar>

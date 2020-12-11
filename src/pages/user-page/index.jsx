@@ -26,7 +26,7 @@ const UserPage = () => {
 
 
   useEffect(() => {
-    profileRequest("8b8e50a6-50c2-4718-b817-2d38cad0c8f4")
+    profileRequest("047e5718-07ae-45e0-a256-1fa9a0186985")
   }, [])
 
   const profileRequest = userId => {
@@ -60,7 +60,7 @@ const UserPage = () => {
             onChangeIndex={handleChangeIndex}
           >
             <TabContent value={value} index={0}>
-              <img src={currentUser.avatar_url ? currentUser.avatar_url : "/assets/user.png"}/>
+              <img src={currentUser.avatar_url}/>
               <div>Nome : {currentUser.name}</div>
               <div>Bio : {currentUser.bio}</div>
             </TabContent>

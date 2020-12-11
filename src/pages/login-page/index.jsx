@@ -12,7 +12,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
-const Login = () => {
+const Login = ({setAuthentication, authentication}) => {
   const [values, setValues] = useState({
     password: "",
     showPassword: false,
@@ -37,17 +37,17 @@ const Login = () => {
 
   const history = useHistory();
 
-
-
   const handleForm = value => {
     axios.post("https://kenziehub.me/sessions", {...value})
     .then(res => {
       window.localStorage.setItem('authToken', res.data.token)
     })
-    
     .catch((err) => {
       setError("email" , {message: "Usuário ou senha inválidas"})
     })
+
+    setAuthentication(true);
+    history.push("/feed")
   }
 
   return (
@@ -90,7 +90,7 @@ const Login = () => {
               }}
             />
           </div>
-          <button type="submit">Entrar</button>
+          <Button type="submit">Entrar</Button>
         </form>
         <Button onClick={() => history.push("/register")}>Cadastre-se</Button>
       </Container>
