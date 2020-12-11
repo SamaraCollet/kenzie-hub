@@ -7,6 +7,7 @@ import Login from "./pages/login-page";
 import Header from "./components/header";
 import UserPage from './pages/user-page'
 import Feed from "./pages/feed-page";
+import PageNotFound from "./pages/page-not-found";
 
 function App() {
   return (
@@ -25,9 +26,12 @@ function App() {
         <Route exact path="/user">
           <UserPage />
         </Route>
-        <Route path="/">
+        <Route exact path="/">
           <Home />
         </Route> 
+        <Route path="*">
+          <PageNotFound />
+        </Route>
       </Switch>
     </>
   );

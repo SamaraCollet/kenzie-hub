@@ -25,20 +25,19 @@ const UserPage = () => {
   };
 
 
+  useEffect(() => {
+    profileRequest("8b8e50a6-50c2-4718-b817-2d38cad0c8f4")
+  }, [])
 
   const profileRequest = userId => {
     axios
     .get(`https://kenziehub.me/users/${userId}`)
     .then(res => {
-      setUser(res)
-      console.log(res)
+      setUser(res.data)
     })
     .catch(err => console.log(err))
   }
-  useEffect(() => {
-    profileRequest("8b8e50a6-50c2-4718-b817-2d38cad0c8f4")
-  }, [])
-
+  console.log(currentUser)
   return (
     <UserContainer>
       <Container maxWidth="md">
@@ -61,18 +60,28 @@ const UserPage = () => {
             onChangeIndex={handleChangeIndex}
           >
             <TabContent value={value} index={0}>
-              O profissional tem experiência nas tecnologias JAVASCRIPT, CSS,
-              HTML, e conhecimento nos frameworks: Angular, Css, Html, .NET
-              FRAMEWORK, Spring.
+              <img src={currentUser.avatar_url}/>
+              <div>Nome : {currentUser.name}</div>
+              <div>Bio : {currentUser.bio}</div>
             </TabContent>
             <TabContent value={value} index={1} dir={theme.direction}>
-              AEAOEKAOSKDAK
+              {currentUser.techs ? (currentUser.techs.map((tech, index) => (
+                <div key={index}>{tech.title} - {tech.status}</div>
+              ))) :
+              (
+                <div>Carregando...</div>
+              )}
             </TabContent>
             <TabContent value={value} index={2} dir={theme.direction}>
-              GSDFGSDBSDF
+            {currentUser.works ? (currentUser.works.map((work, index) => (
+                <div key={index}>{work.title} - {work.description}</div>
+              ))) :
+              (
+                <div>Carregando...</div>
+              )}
             </TabContent>
             <TabContent value={value} index={3} dir={theme.direction}>
-              234526254727
+              {currentUser.course_module}
             </TabContent>
           </SwipeableViews>
         </Paper>
