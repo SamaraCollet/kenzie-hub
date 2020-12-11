@@ -2,7 +2,6 @@ import { ContainerHome, Banner } from "./style";
 import Button from "@material-ui/core/Button";
 import { useHistory } from "react-router-dom";
 
-
 const Home = () => {
   const history = useHistory();
   return (
@@ -16,6 +15,7 @@ const Home = () => {
             não é mesmo?
           </p>
           <Button onClick={() => history.push("/register")}>Bora la!</Button>
+          <Button onClick={() => history.push("/feed")}>Feed</Button>
         </div>
         <div className="imageHome">
           <img src="/assets/imgbanner.jpg" alt="" />
