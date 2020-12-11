@@ -4,10 +4,28 @@ import * as yup from 'yup'
 import Button from '@material-ui/core/Button'
 import { Container, StyledForm, StyledInput } from './styles.jsx'
 import axios from 'axios'
+import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import InputAdornment from "@material-ui/core/InputAdornment";
+import IconButton from "@material-ui/core/IconButton";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
 
 const RegisterPage = () => {
+    const [values, setValues] = useState({
+        password: "",
+        showPassword: false,
+    });
+    
+      const handleChange = (prop) => (evt) => {
+        setValues({ ...values, [prop]: evt.target.value });
+      };
+    
+      const handleClickShowPassword = () => {
+        setValues({ ...values, showPassword: !values.showPassword });
+        };
+
     const schema = yup.object().shape({
         name: yup.string()
         .required("Campo obrigatório")
@@ -100,6 +118,21 @@ const RegisterPage = () => {
                     inputRef={register}
                     error={!!errors.password}
                     helperText={errors.password?.message}
+                    type={values.showPassword ? "text" : "password"}
+                    onChange={handleChange("password")}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="togle password visibility"
+                            onClick={handleClickShowPassword}
+                            edge="end"
+                          >
+                            {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
                 />
                 <StyledInput
                     name="password_confirmation"
@@ -107,6 +140,21 @@ const RegisterPage = () => {
                     inputRef={register}
                     error={!!errors.password_confirmation}
                     helperText={errors.password_confirmation?.message}
+                    type={values.showPassword ? "text" : "password"}
+                    onChange={handleChange("password")}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="togle password visibility"
+                            onClick={handleClickShowPassword}
+                            edge="end"
+                          >
+                            {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
                 />
                 <Button type="submit">Enviar</Button>
             </StyledForm>

@@ -3,15 +3,16 @@ import Paper from "@material-ui/core/Paper";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import { useTheme } from "@material-ui/core/styles";
-
 import SwipeableViews from "react-swipeable-views";
 
 import TabContent from "./TabContent";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { UserContainer } from "./style";
+import axios from "axios";
 
 const UserPage = () => {
+  const [currentUser, setUser] = useState({})
   const theme = useTheme();
   const [value, setValue] = useState(0);
 
@@ -23,6 +24,20 @@ const UserPage = () => {
     setValue(index);
   };
 
+
+  useEffect(() => {
+    profileRequest("8b8e50a6-50c2-4718-b817-2d38cad0c8f4")
+  }, [])
+
+  const profileRequest = userId => {
+    axios
+    .get(`https://kenziehub.me/users/${userId}`)
+    .then(res => {
+      setUser(res.data)
+    })
+    .catch(err => console.log(err))
+  }
+  console.log(currentUser)
   return (
     <UserContainer>
       <Container maxWidth="md">
@@ -34,11 +49,10 @@ const UserPage = () => {
             textColor="primary"
             scrollButtons="auto"
           >
-            <Tab label="Sobre" />
-            <Tab label="Experiências " />
-            <Tab label="Formação" />
-            <Tab label="Análise" />
-            <Tab label="Reconhecimentos " />
+            <Tab label="Bio" />
+            <Tab label="Tecnologias" />
+            <Tab label="Trabalhos" />
+            <Tab label="Curso" />
           </Tabs>
           <SwipeableViews
             axis={theme.direction === "rtl" ? "x-reverse" : "x"}
@@ -46,21 +60,28 @@ const UserPage = () => {
             onChangeIndex={handleChangeIndex}
           >
             <TabContent value={value} index={0}>
-              O profissional tem experiência nas tecnologias JAVASCRIPT, CSS,
-              HTML, e conhecimento nos frameworks: Angular, Css, Html, .NET
-              FRAMEWORK, Spring.
+              <img src={currentUser.avatar_url ? currentUser.avatar_url : "/assets/user.png"}/>
+              <div>Nome : {currentUser.name}</div>
+              <div>Bio : {currentUser.bio}</div>
             </TabContent>
             <TabContent value={value} index={1} dir={theme.direction}>
-              AEAOEKAOSKDAK
+              {currentUser.techs ? (currentUser.techs.map((tech, index) => (
+                <div key={index}>{tech.title} - {tech.status}</div>
+              ))) :
+              (
+                <div>Carregando...</div>
+              )}
             </TabContent>
             <TabContent value={value} index={2} dir={theme.direction}>
-              GSDFGSDBSDF
+            {currentUser.works ? (currentUser.works.map((work, index) => (
+                <div key={index}>{work.title} - {work.description}</div>
+              ))) :
+              (
+                <div>Carregando...</div>
+              )}
             </TabContent>
             <TabContent value={value} index={3} dir={theme.direction}>
-              234526254727
-            </TabContent>
-            <TabContent value={value} index={4} dir={theme.direction}>
-              wnyertyertyw45
+              {currentUser.course_module}
             </TabContent>
           </SwipeableViews>
         </Paper>
