@@ -1,14 +1,19 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { ContainerStyled } from "./styles";
+import { ContainerStyled, RadioStyling } from "./styles";
 import { Main, ButtonStyled } from "../../styles/styles_login_register";
 import axios from "axios";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import TextField from "@material-ui/core/TextField";
+import FormControl from "@material-ui/core/FormControl";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormLabel from "@material-ui/core/FormLabel";
 import IconButton from "@material-ui/core/IconButton";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import Radio from "@material-ui/core/Radio";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
@@ -16,6 +21,7 @@ const RegisterPage = () => {
   const [values, setValues] = useState({
     password: "",
     showPassword: false,
+    module: "Primeiro módulo (Introdução ao Frontend)",
   });
 
   const handleChange = (prop) => (evt) => {
@@ -102,15 +108,41 @@ const RegisterPage = () => {
               helperText={errors.bio?.message}
             />
           </div>
-          <div>
-            <TextField
-              name="course_module"
-              label="Modulo"
-              inputRef={register}
-              error={!!errors.course_module}
-              helperText={errors.course_module?.message}
-            />
-          </div>
+          <RadioStyling>
+            <FormControl>
+              <FormLabel>Módulo</FormLabel>
+              <RadioGroup
+                name="course_module"
+                label="Modulo"
+                inputRef={register}
+                value={values.module}
+                error={!!errors.course_module}
+                helperText={errors.course_module?.message}
+                onChange={handleChange("module")}
+              >
+                <FormControlLabel
+                  value="Primeiro módulo (Introdução ao Frontend)"
+                  control={<Radio color="primary" />}
+                  label="Primeiro módulo (Introdução ao Frontend)"
+                />
+                <FormControlLabel
+                  value="Segundo módulo (Frontend Avançado)"
+                  control={<Radio color="primary" />}
+                  label="Segundo módulo (Frontend Avançado)"
+                />
+                <FormControlLabel
+                  value="Terceiro módulo (Introdução ao Backend)"
+                  control={<Radio color="primary" />}
+                  label="Terceiro módulo (Introdução ao Backend)"
+                />
+                <FormControlLabel
+                  value="Quarto módulo (Backend Avançado)"
+                  control={<Radio color="primary" />}
+                  label="Quarto módulo (Backend Avançado)"
+                />
+              </RadioGroup>
+            </FormControl>
+          </RadioStyling>
           <div>
             <TextField
               name="contact"

@@ -2,6 +2,9 @@ import styled from "styled-components";
 import { Container } from "../../styles/styles_login_register";
 
 export const ContainerStyled = styled(Container)`
+  height: auto;
+  padding-top: 16px;
+
   h1 {
     margin-bottom: 5px;
   }
@@ -35,5 +38,18 @@ export const ContainerStyled = styled(Container)`
     .buttonStyled button {
       margin-bottom: 20px;
     }
+  }
+`;
+
+export const RadioStyling = styled.div`
+  margin-top: 16px;
+  .MuiFormControlLabel-root {
+    display: inline-block;
+    margin: 0;
+  }
+
+  .MuiIconButton-label {
+    display: inline;
+    width: 20px;
   }
 `;
