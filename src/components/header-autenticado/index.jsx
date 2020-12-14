@@ -7,6 +7,12 @@ import Button from "@material-ui/core/Button";
 
 const HeaderLogOut = () => {
   const history = useHistory();
+
+  const logout = () => {
+    window.localStorage.clear();
+    history.push("/");
+  };
+
   return (
     <Container>
       <AppBar position="fixed">
@@ -19,12 +25,13 @@ const HeaderLogOut = () => {
             />
           </div>
           <div>
-            <Button color="inherit" onClick={() => history.push("/")}>
+            <Button color="inherit" onClick={() => history.push("/user")}>
+              Meu perfil
+            </Button>
+            <Button color="inherit" onClick={logout}>
               Sair
             </Button>
-            {/* <Button color="inherit" onClick={() => history.push("/register")}>
-              Cadastre-se
-            </Button> */}
+
           </div>
         </ToolbarStyled>
       </AppBar>

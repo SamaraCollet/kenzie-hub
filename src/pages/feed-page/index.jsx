@@ -1,7 +1,7 @@
 import { Container, Cards } from "./style";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { addUserThunk } from "../../store/modules/thunk";
+import { addUserThunk } from "../../store/modules/users-list/thunk";
 import { Pagination } from "antd";
 import axios from "axios";
 
@@ -12,6 +12,7 @@ const Feed = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageNumber, setPageNumber] = useState(0);
   const dispatch = useDispatch();
+
 
   useEffect(() => {
     dispatch(addUserThunk(perPage, currentPage));
@@ -27,6 +28,7 @@ const Feed = () => {
   const pageSwitch = (current) => {
     setCurrentPage(current);
   };
+
 
   return (
     <Container>

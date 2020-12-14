@@ -1,6 +1,7 @@
 import "antd/dist/antd.css";
 import GlobalStyle from "./styles/global";
 import { Switch, Route } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import RegisterPage from "./pages/register-page";
 import Home from "./pages/home";
@@ -16,6 +17,7 @@ function App() {
     <>
       <GlobalStyle></GlobalStyle>
       <div id="main-container">
+        <Header />
         <Switch>
           <Route exact path="/login">
             <Header />
@@ -37,8 +39,12 @@ function App() {
             <Header />
             <Home />
           </Route>
-          <Route path="*">
-            <HeaderLogOut />
+          <Route path='/user/:id'>
+            <Header />
+            <UserPage />
+          </Route>
+          <Route path='*'>
+            <Header />
             <PageNotFound />
           </Route>
         </Switch>
