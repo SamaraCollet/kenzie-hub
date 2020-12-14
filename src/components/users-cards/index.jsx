@@ -14,7 +14,8 @@ const UsersCard = () => {
         />
       </div>
       <div>
-        <h1>{user.name}</h1> <h2>{user.course_module}</h2>
+        <h1>{user.name}</h1>
+        <h2>{user.course_module}</h2>
       </div>
       <div className="button">
         <Button>Perfil</Button>
@@ -24,5 +25,3 @@ const UsersCard = () => {
 };
 
 export default UsersCard;
-
-// "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"

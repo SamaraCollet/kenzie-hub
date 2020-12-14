@@ -1,165 +1,180 @@
-import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from 'yup'
-import Button from '@material-ui/core/Button'
-import { Container, StyledForm, StyledInput } from './styles.jsx'
-import axios from 'axios'
-import { useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { ContainerStyled } from "./styles";
+import { Main, ButtonStyled } from "../../styles/styles_login_register";
+import axios from "axios";
+import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import TextField from "@material-ui/core/TextField";
 import IconButton from "@material-ui/core/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
-
 const RegisterPage = () => {
-    const [values, setValues] = useState({
-        password: "",
-        showPassword: false,
-    });
-    
-      const handleChange = (prop) => (evt) => {
-        setValues({ ...values, [prop]: evt.target.value });
-      };
-    
-      const handleClickShowPassword = () => {
-        setValues({ ...values, showPassword: !values.showPassword });
-        };
+  const [values, setValues] = useState({
+    password: "",
+    showPassword: false,
+  });
 
-    const schema = yup.object().shape({
-        name: yup.string()
-        .required("Campo obrigatório")
-        .matches(
-            /[A-Za-z]* [A-Za-z]/g,
-            "Não pode receber números nem caracteres especiais, deve ter pelo menos o primeiro e o segundo nome. "
-        ),
-        
-        email: yup.string()
-        .required("Campo obrigatório")
-        .email("Email inválido"),
+  const handleChange = (prop) => (evt) => {
+    setValues({ ...values, [prop]: evt.target.value });
+  };
 
-        bio: yup.string()
-        .required("Campo obrigatório"),
+  const handleClickShowPassword = () => {
+    setValues({ ...values, showPassword: !values.showPassword });
+  };
 
-        course_module: yup.string()
-        .required("Campo obrigatório"),
+  const schema = yup.object().shape({
+    name: yup
+      .string()
+      .required("Campo obrigatório")
+      .matches(
+        /[A-Za-z]* [A-Za-z]/g,
+        "Não pode receber números nem caracteres especiais, deve ter pelo menos o primeiro e o segundo nome. "
+      ),
 
-        contact: yup.string()
-        .required("Campo obrigatório"),
+    email: yup.string().required("Campo obrigatório").email("Email inválido"),
 
-        password: yup
-        .string()
-        .required("Campo obrigatório.")
-        .matches(
-          /^((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
-          "Senha deve conter ao menos uma letra maiúscula, uma minúscula, um número e um caracter especial"
-        ),
+    bio: yup.string().required("Campo obrigatório"),
 
-        password_confirmation: yup.string()
-        .required("Campo Obrigatório")
-        .oneOf([yup.ref("password")], "Senhas diferentes"),
-    })
-    
+    course_module: yup.string().required("Campo obrigatório"),
 
-    const { register, handleSubmit, errors } = useForm({
-        resolver: yupResolver(schema),
-    });
+    contact: yup.string().required("Campo obrigatório"),
 
-    const history = useHistory()
+    password: yup
+      .string()
+      .required("Campo obrigatório.")
+      .matches(
+        /^((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
+        "Senha deve conter ao menos uma letra maiúscula, uma minúscula, um número e um caracter especial"
+      ),
 
-    const handleForm = value => {
-        axios
-        .post(`https://kenziehub.me/users`, {...value})
-        .then(res => history.push('/login'))
-        .catch((err) => console.log(err));
-    }
-    
-    return (
-        <Container>
-            <StyledForm onSubmit={handleSubmit(handleForm)}>
-                <StyledInput
-                    name="name"
-                    label="Nome"
-                    inputRef={register}
-                    error={!!errors.name}
-                    helperText={errors.name?.message}
-                />
-                <StyledInput
-                    name="email"
-                    label="Email"
-                    inputRef={register}
-                    error={!!errors.email}
-                    helperText={errors.email?.message}
-                />
-                <StyledInput
-                    name="bio"
-                    label="Biografia"
-                    inputRef={register}
-                    error={!!errors.bio}
-                    helperText={errors.bio?.message}
-                />
-                <StyledInput
-                    name="course_module"
-                    label="Modulo"
-                    inputRef={register}
-                    error={!!errors.course_module}
-                    helperText={errors.course_module?.message}
-                />
-                <StyledInput
-                    name="contact"
-                    label="Contato"
-                    inputRef={register}
-                    error={!!errors.contact}
-                    helperText={errors.contact?.message}
-                />
-                <StyledInput
-                    name="password"
-                    label="Senha"
-                    inputRef={register}
-                    error={!!errors.password}
-                    helperText={errors.password?.message}
-                    type={values.showPassword ? "text" : "password"}
-                    onChange={handleChange("password")}
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          <IconButton
-                            aria-label="togle password visibility"
-                            onClick={handleClickShowPassword}
-                            edge="end"
-                          >
-                            {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                          </IconButton>
-                        </InputAdornment>
-                      ),
-                    }}
-                />
-                <StyledInput
-                    name="password_confirmation"
-                    label="Confirme a senha"
-                    inputRef={register}
-                    error={!!errors.password_confirmation}
-                    helperText={errors.password_confirmation?.message}
-                    type={values.showPassword ? "text" : "password"}
-                    onChange={handleChange("password")}
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          <IconButton
-                            aria-label="togle password visibility"
-                            onClick={handleClickShowPassword}
-                            edge="end"
-                          >
-                            {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                          </IconButton>
-                        </InputAdornment>
-                      ),
-                    }}
-                />
-                <Button type="submit">Enviar</Button>
-            </StyledForm>
-        </Container>
-    )
-}
+    password_confirmation: yup
+      .string()
+      .required("Campo Obrigatório")
+      .oneOf([yup.ref("password")], "Senhas diferentes"),
+  });
 
-export default RegisterPage
+  const { register, handleSubmit, errors } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const history = useHistory();
+
+  const handleForm = (value) => {
+    axios
+      .post(`https://kenziehub.me/users`, { ...value })
+      .then((res) => history.push("/login"))
+      .catch((err) => console.log(err));
+  };
+
+  return (
+    <Main>
+      <ContainerStyled>
+        <h1>Cadastro</h1>
+        <form onSubmit={handleSubmit(handleForm)}>
+          <div>
+            <TextField
+              name="name"
+              label="Nome"
+              inputRef={register}
+              error={!!errors.name}
+              helperText={errors.name?.message}
+            />
+          </div>
+          <div>
+            <TextField
+              name="email"
+              label="Email"
+              inputRef={register}
+              error={!!errors.email}
+              helperText={errors.email?.message}
+            />
+          </div>
+          <div>
+            <TextField
+              name="bio"
+              label="Biografia"
+              inputRef={register}
+              error={!!errors.bio}
+              helperText={errors.bio?.message}
+            />
+          </div>
+          <div>
+            <TextField
+              name="course_module"
+              label="Modulo"
+              inputRef={register}
+              error={!!errors.course_module}
+              helperText={errors.course_module?.message}
+            />
+          </div>
+          <div>
+            <TextField
+              name="contact"
+              label="Contato"
+              inputRef={register}
+              error={!!errors.contact}
+              helperText={errors.contact?.message}
+            />
+          </div>
+          <div className="password">
+            <TextField
+              name="password"
+              label="Senha"
+              inputRef={register}
+              error={!!errors.password}
+              helperText={errors.password?.message}
+              type={values.showPassword ? "text" : "password"}
+              onChange={handleChange("password")}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="togle password visibility"
+                      onClick={handleClickShowPassword}
+                      edge="end"
+                    >
+                      {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </div>
+          <div className="password">
+            <TextField
+              name="password_confirmation"
+              label="Confirme a senha"
+              inputRef={register}
+              error={!!errors.password_confirmation}
+              helperText={errors.password_confirmation?.message}
+              type={values.showPassword ? "text" : "password"}
+              onChange={handleChange("password")}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="togle password visibility"
+                      onClick={handleClickShowPassword}
+                      edge="end"
+                    >
+                      {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </div>
+          <div className="buttonStyled">
+            <ButtonStyled type="submit">Enviar</ButtonStyled>
+          </div>
+        </form>
+      </ContainerStyled>
+    </Main>
+  );
+};
+
+export default RegisterPage;
