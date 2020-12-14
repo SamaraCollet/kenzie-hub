@@ -1,16 +1,23 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
-  @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap");
+export const Container = styled.main`
   background-color: #fff;
-  width: 100vw;
-  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  .pagination {
+    margin: 2vh 0 5vh;
+  }
+`;
+
+export const Cards = styled.div`
+  background-color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
   flex-wrap: wrap;
-  color: #161616;
-  font-family: "Open Sans", sans-serif;
-  margin-top: 15vh;
+  margin-top: 12vh;
 `;

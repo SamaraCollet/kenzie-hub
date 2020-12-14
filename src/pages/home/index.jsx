@@ -10,9 +10,9 @@ const Home = () => {
         <div className="bannerContent">
           <h1>Você também ama codar?</h1>
           <p>
-            E conhecer coleguinhas que amam codar? Aqui tem lugar para mais um!
-            Faça parte do grupo! A final, não há limites para o desenvolvimento,
-            não é mesmo?
+            E conhecer coleguinhas que amam codar? <br></br>Aqui tem lugar para
+            mais um! Faça parte do grupo!<br></br> A final, não há limites para
+            o desenvolvimento, não é mesmo?
           </p>
           <Button onClick={() => history.push("/register")}>Bora la!</Button>
           <Button onClick={() => history.push("/feed")}>Feed</Button>
