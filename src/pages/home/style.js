@@ -16,8 +16,8 @@ export const Banner = styled.div`
   align-items: center;
 
   .bannerContent {
-    width: 32vw;
-    margin-right: 40px;
+    width: 40vw;
+    margin-right: 30px;
   }
 
   div {
@@ -119,10 +119,11 @@ export const Banner = styled.div`
   @media only screen and (max-width: 767px) {
     flex-wrap: wrap;
     h1 {
-      font-size: 2.2rem;
+      font-size: 2rem;
     }
     p {
-      font-size: 0.9rem;
+      font-size: 0.8rem;
+      margin-bottom: 20px;
     }
     button {
       width: 16vw;
