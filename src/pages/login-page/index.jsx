@@ -3,7 +3,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import TextField from "@material-ui/core/TextField";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { ContainerStyled } from "./styles";
 import { Main, ButtonStyled } from "../../styles/styles_login_register";
 import { useState } from "react";
@@ -17,6 +17,8 @@ const Login = () => {
     password: "",
     showPassword: false,
   });
+
+  const history = useHistory();
 
   const handleChange = (prop) => (evt) => {
     setValues({ ...values, [prop]: evt.target.value });
@@ -40,6 +42,7 @@ const Login = () => {
       .post("https://kenziehub.me/sessions", { ...value })
       .then((res) => {
         window.localStorage.setItem("authToken", res.data.token);
+        history.push("/feed");
       })
 
       .catch((err) => {
