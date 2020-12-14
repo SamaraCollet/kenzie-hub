@@ -17,6 +17,7 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import WorkIcon from "@material-ui/icons/Work";
 import DeleteIcon from "@material-ui/icons/Delete";
+import { useParams } from 'react-router-dom'
 
 import { useState, useEffect } from "react";
 import { UserContainer, ContainerBio } from "./style";
@@ -26,6 +27,7 @@ const UserPage = () => {
   const [currentUser, setUser] = useState({});
   const theme = useTheme();
   const [value, setValue] = useState(0);
+  const { id } = useParams()
 
   const handleChange = (evt, newValue) => {
     setValue(newValue);
@@ -36,7 +38,7 @@ const UserPage = () => {
   };
 
   useEffect(() => {
-    profileRequest("8b8e50a6-50c2-4718-b817-2d38cad0c8f4");
+    profileRequest(id);
   }, []);
 
   const profileRequest = (userId) => {
