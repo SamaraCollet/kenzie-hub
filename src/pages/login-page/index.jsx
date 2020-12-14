@@ -12,7 +12,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
-const Login = ({setAuthentication, authentication}) => {
+const Login = () => {
   const [values, setValues] = useState({
     password: "",
     showPassword: false,
@@ -46,7 +46,6 @@ const Login = ({setAuthentication, authentication}) => {
       setError("email" , {message: "Usuário ou senha inválidas"})
     })
 
-    setAuthentication(true);
     history.push("/feed")
   }
 

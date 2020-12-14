@@ -4,7 +4,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
 
-const HeaderLogOut = ({setAuthentication, authentication}) => {
+const HeaderLogOut = () => {
   const history = useHistory();
 
   const logout = () => {
