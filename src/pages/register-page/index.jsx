@@ -114,29 +114,30 @@ const RegisterPage = () => {
               <RadioGroup
                 name="course_module"
                 label="Modulo"
-                inputRef={register}
                 value={values.module}
-                error={!!errors.course_module}
-                helperText={errors.course_module?.message}
                 onChange={handleChange("module")}
               >
                 <FormControlLabel
                   value="Primeiro módulo (Introdução ao Frontend)"
+                  inputRef={register}
                   control={<Radio color="primary" />}
                   label="Primeiro módulo (Introdução ao Frontend)"
                 />
                 <FormControlLabel
                   value="Segundo módulo (Frontend Avançado)"
+                  inputRef={register}
                   control={<Radio color="primary" />}
                   label="Segundo módulo (Frontend Avançado)"
                 />
                 <FormControlLabel
                   value="Terceiro módulo (Introdução ao Backend)"
+                  inputRef={register}
                   control={<Radio color="primary" />}
                   label="Terceiro módulo (Introdução ao Backend)"
                 />
                 <FormControlLabel
                   value="Quarto módulo (Backend Avançado)"
+                  inputRef={register}
                   control={<Radio color="primary" />}
                   label="Quarto módulo (Backend Avançado)"
                 />
