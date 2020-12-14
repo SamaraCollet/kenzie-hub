@@ -2,10 +2,10 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
-import { Main, Container } from "./styles";
+import { Link, useHistory } from "react-router-dom";
+import { ContainerStyled } from "./styles";
+import { Main, ButtonStyled } from "../../styles/styles_login_register";
 import { useState } from "react";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
@@ -17,6 +17,8 @@ const Login = () => {
     password: "",
     showPassword: false,
   });
+
+  const history = useHistory();
 
   const handleChange = (prop) => (evt) => {
     setValues({ ...values, [prop]: evt.target.value });
@@ -35,24 +37,23 @@ const Login = () => {
     resolver: yupResolver(schema),
   });
 
-  const history = useHistory();
+  const handleForm = (value) => {
+    axios
+      .post("https://kenziehub.me/sessions", { ...value })
+      .then((res) => {
+        window.localStorage.setItem("authToken", res.data.token);
+        history.push("/feed");
+      })
 
-  const handleForm = value => {
-    axios.post("https://kenziehub.me/sessions", {...value})
-    .then(res => {
-      window.localStorage.setItem('authToken', res.data.token)
-    })
-    .catch((err) => {
-      setError("email" , {message: "Usuário ou senha inválidas"})
-    })
-
-    history.push("/feed")
-  }
+      .catch((err) => {
+        setError("email", { message: "Usuário ou senha inválidas" });
+      });
+  };
 
   return (
     <Main>
-      <Container>
-        <h1>Kenzie Hub</h1>
+      <ContainerStyled>
+        <h1>kenzie hub</h1>
         <form onSubmit={handleSubmit(handleForm)}>
           <div>
             <TextField
@@ -64,7 +65,7 @@ const Login = () => {
             />
           </div>
 
-          <div>
+          <div className="password">
             <TextField
               name="password"
               label="Senha"
@@ -89,10 +90,14 @@ const Login = () => {
               }}
             />
           </div>
-          <Button type="submit">Entrar</Button>
+          <div className="buttonStyled">
+            <ButtonStyled type="submit">Entrar</ButtonStyled>
+          </div>
         </form>
-        <Button onClick={() => history.push("/register")}>Cadastre-se</Button>
-      </Container>
+        <p>
+          Ainda não é do grupo? <Link to="/register">Cadastre-se</Link>
+        </p>
+      </ContainerStyled>
     </Main>
   );
 };

@@ -4,6 +4,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import { useTheme } from "@material-ui/core/styles";
 import SwipeableViews from "react-swipeable-views";
+import { useParams } from 'react-router-dom'
 
 import TabContent from "./TabContent";
 
@@ -25,8 +26,10 @@ const UserPage = () => {
   };
 
 
+  const { id } = useParams();
+
   useEffect(() => {
-    profileRequest("047e5718-07ae-45e0-a256-1fa9a0186985")
+    profileRequest(id)
   }, [])
 
   const profileRequest = userId => {

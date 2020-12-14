@@ -1,7 +1,8 @@
 import { useHistory } from "react-router-dom";
-import { Container } from "./style";
+
+import { Container, ToolbarStyled } from "../header/style";
+
 import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
 
 const HeaderLogOut = () => {
@@ -10,13 +11,12 @@ const HeaderLogOut = () => {
   const logout = () => {
     window.localStorage.clear();
     history.push("/");
-    setAuthentication(false);
   };
 
   return (
     <Container>
       <AppBar position="fixed">
-        <Toolbar>
+        <ToolbarStyled>
           <div className="logo">
             <img
               src="/assets/logo.png"
@@ -33,7 +33,7 @@ const HeaderLogOut = () => {
             </Button>
 
           </div>
-        </Toolbar>
+        </ToolbarStyled>
       </AppBar>
     </Container>
   );

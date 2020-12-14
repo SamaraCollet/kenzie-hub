@@ -1,12 +1,20 @@
 import Button from "@material-ui/core/Button";
 import { CardStyled } from "./style";
 import { useSelector } from "react-redux";
+import { useHistory } from 'react-router-dom'
 
 const UsersCard = () => {
   const users = useSelector((state) => state.user);
+  const history = useHistory()
 
   return users.map((user, index) => (
-    <CardStyled key={index} hoverable>
+    <CardStyled
+    key={index}
+    hoverable
+    onClick={() => {
+      history.push(`/user/${user.id}`)
+    }}
+    >
       <div className="imageCard">
         <img
           alt="example"
@@ -14,7 +22,8 @@ const UsersCard = () => {
         />
       </div>
       <div>
-        <h1>{user.name}</h1> <h2>{user.course_module}</h2>
+        <h1>{user.name}</h1>
+        <h2>{user.course_module}</h2>
       </div>
       <div className="button">
         <Button>Perfil</Button>
@@ -24,5 +33,3 @@ const UsersCard = () => {
 };
 
 export default UsersCard;
-
-// "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
