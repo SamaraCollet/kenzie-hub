@@ -2,16 +2,17 @@ import styled from "styled-components";
 import { Card } from "antd";
 
 export const CardStyled = styled(Card)`
-  background-color: #f1f1f1 !important;
+  background-color: #f7f7f7 !important;
   margin: 0 auto !important;
-  width: 220px !important;
-  min-height: 380px !important;
+  width: 300px !important;
+  min-height: 390px !important;
   font-weight: bold !important;
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
-  margin: 5px 10px !important;
+  margin: 8px 10px !important;
   position: relative;
+  border: 1px solid #d3d3d3 !important;
 
   .ant-card-body {
     width: 270px !important;
@@ -44,14 +45,15 @@ export const CardStyled = styled(Card)`
     margin-top: 20px;
     font-size: 1.3rem;
     text-align: center;
-    color: #161616;
+    color: #1b1b1b;
   }
 
   h2 {
     margin-top: 20px;
     font-size: 1rem;
+    font-weight: normal;
     text-align: center;
-    color: gray;
+    color: #6d6969;
   }
 
   .button {
@@ -60,26 +62,20 @@ export const CardStyled = styled(Card)`
   }
 
   button {
-    width: 150px;
+    width: 155px !important;
     font-size: 0.9rem;
     color: #fff;
     background-color: #1480fb;
     border: 2px solid #146dd3;
     height: 30px;
-    width: 120px;
     bottom: 0;
     position: absolute;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
   }
-  button:focus {
-    outline: thin dotted;
-    outline: 0px auto -webkit-focus-ring-color;
-    outline-offset: 0px;
-  }
+
   button:hover {
     background-color: #013b84;
     border: 2px solid #013b84;
     color: #fff;
-    cursor: pointer;
   }
 `;
