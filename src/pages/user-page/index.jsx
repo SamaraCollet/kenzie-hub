@@ -4,6 +4,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import { useTheme } from "@material-ui/core/styles";
 import SwipeableViews from "react-swipeable-views";
+import { useParams } from 'react-router-dom'
 
 import TabContent from "./TabContent";
 
@@ -25,8 +26,10 @@ const UserPage = () => {
   };
 
 
+  const { id } = useParams();
+
   useEffect(() => {
-    profileRequest("8b8e50a6-50c2-4718-b817-2d38cad0c8f4")
+    profileRequest(id)
   }, [])
 
   const profileRequest = userId => {
@@ -60,7 +63,7 @@ const UserPage = () => {
             onChangeIndex={handleChangeIndex}
           >
             <TabContent value={value} index={0}>
-              <img src={currentUser.avatar_url ? currentUser.avatar_url : "/assets/user.png"}/>
+              <img src={currentUser.avatar_url}/>
               <div>Nome : {currentUser.name}</div>
               <div>Bio : {currentUser.bio}</div>
             </TabContent>
