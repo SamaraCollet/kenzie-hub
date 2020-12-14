@@ -1,12 +1,20 @@
 import Button from "@material-ui/core/Button";
 import { CardStyled } from "./style";
 import { useSelector } from "react-redux";
+import { useHistory } from 'react-router-dom'
 
 const UsersCard = () => {
   const users = useSelector((state) => state.user);
+  const history = useHistory()
 
   return users.map((user, index) => (
-    <CardStyled key={index} hoverable>
+    <CardStyled
+    key={index}
+    hoverable
+    onClick={() => {
+      history.push(`/user/${user.id}`)
+    }}
+    >
       <div className="imageCard">
         <img
           alt="example"
