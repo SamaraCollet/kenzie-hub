@@ -1,8 +1,11 @@
 import "antd/dist/antd.css";
 import GlobalStyle from "./styles/global";
 import { Switch, Route } from "react-router-dom";
+<<<<<<< HEAD
+=======
 import { useDispatch } from "react-redux";
 import { addUserToken } from './store/modules/current-user/action'
+>>>>>>> f67ac704ba1e6708d6a0756725fcb47344b02ad5
 
 import RegisterPage from "./pages/register-page";
 import Home from "./pages/home";
@@ -36,10 +39,19 @@ function App() {
           <Route exact path="/">
             <Home />
           </Route>
+<<<<<<< HEAD
+          <Route path="/user/:id">
+            <Header />
+            <UserPage />
+          </Route>
+          <Route path="*">
+            <Header />
+=======
           <Route path='/user/:id'>
             <UserPage />
           </Route>
           <Route path='*'>
+>>>>>>> f67ac704ba1e6708d6a0756725fcb47344b02ad5
             <PageNotFound />
           </Route>
         </Switch>
