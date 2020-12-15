@@ -2,7 +2,7 @@ import "antd/dist/antd.css";
 import GlobalStyle from "./styles/global";
 import { Switch, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addUserToken } from './store/modules/current-user/action'
+import { addUserToken } from "./store/modules/current-user/action";
 
 import RegisterPage from "./pages/register-page";
 import Home from "./pages/home";
@@ -13,8 +13,10 @@ import Feed from "./pages/feed-page";
 import PageNotFound from "./pages/page-not-found";
 
 function App() {
-  const dispatch = useDispatch()
-  localStorage.hasOwnProperty("authToken") ? (dispatch(addUserToken(localStorage.getItem('authToken')))) : (dispatch(addUserToken('')))
+  const dispatch = useDispatch();
+  localStorage.hasOwnProperty("authToken")
+    ? dispatch(addUserToken(localStorage.getItem("authToken")))
+    : dispatch(addUserToken(""));
   return (
     <>
       <GlobalStyle></GlobalStyle>
@@ -36,10 +38,10 @@ function App() {
           <Route exact path="/">
             <Home />
           </Route>
-          <Route path='/user/:id'>
+          <Route path="/user/:id">
             <UserPage />
           </Route>
-          <Route path='*'>
+          <Route path="*">
             <PageNotFound />
           </Route>
         </Switch>

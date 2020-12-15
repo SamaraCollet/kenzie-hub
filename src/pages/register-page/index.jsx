@@ -80,116 +80,128 @@ const RegisterPage = () => {
       <ContainerStyled>
         <h1>Cadastro</h1>
         <form onSubmit={handleSubmit(handleForm)}>
-          <div>
-            <TextField
-              name="name"
-              label="Nome"
-              inputRef={register}
-              error={!!errors.name}
-              helperText={errors.name?.message}
-            />
-          </div>
-          <div>
-            <TextField
-              name="email"
-              label="Email"
-              inputRef={register}
-              error={!!errors.email}
-              helperText={errors.email?.message}
-            />
-          </div>
-          <div>
-            <TextField
-              name="bio"
-              label="Biografia"
-              inputRef={register}
-              error={!!errors.bio}
-              helperText={errors.bio?.message}
-            />
-          </div>
-          <RadioStyling>
-            <FormControl>
-              <InputLabel>Módulo</InputLabel>
-              <Select
-                name="course_module"
-                value={values.module}
-                onChange={handleChange("module")}
+          <div className="formDivider">
+            <div>
+              <TextField
+                name="name"
+                label="Nome"
                 inputRef={register}
-              >
-                <MenuItem value="Primeiro módulo (Introdução ao Frontend)">
-                  Primeiro módulo (Introdução ao Frontend)
-                </MenuItem>
-                <MenuItem value="Segundo módulo (Frontend Avançado)">
-                  Segundo módulo (Frontend Avançado)
-                </MenuItem>
-                <MenuItem value="Terceiro módulo (Introdução ao Backend)">
-                  Terceiro módulo (Introdução ao Backend){" "}
-                </MenuItem>
-                <MenuItem value="Quarto módulo (Backend Avançado)">
-                  Quarto módulo (Backend Avançado)
-                </MenuItem>
-              </Select>
-            </FormControl>
-          </RadioStyling>
+                error={!!errors.name}
+                helperText={errors.name?.message}
+              />
+            </div>
+            <div>
+              <TextField
+                name="email"
+                label="Email"
+                inputRef={register}
+                error={!!errors.email}
+                helperText={errors.email?.message}
+              />
+            </div>
+            <div>
+              <TextField
+                name="bio"
+                label="Biografia"
+                inputRef={register}
+                error={!!errors.bio}
+                helperText={errors.bio?.message}
+              />
+            </div>
+            <RadioStyling>
+              <FormControl>
+                <InputLabel>Módulo</InputLabel>
+                <Select
+                  name="course_module"
+                  value={values.module}
+                  onChange={handleChange("module")}
+                  inputRef={register}
+                >
+                  <MenuItem value="Primeiro módulo (Introdução ao Frontend)">
+                    Primeiro módulo (Introdução ao Frontend)
+                  </MenuItem>
+                  <MenuItem value="Segundo módulo (Frontend Avançado)">
+                    Segundo módulo (Frontend Avançado)
+                  </MenuItem>
+                  <MenuItem value="Terceiro módulo (Introdução ao Backend)">
+                    Terceiro módulo (Introdução ao Backend){" "}
+                  </MenuItem>
+                  <MenuItem value="Quarto módulo (Backend Avançado)">
+                    Quarto módulo (Backend Avançado)
+                  </MenuItem>
+                </Select>
+              </FormControl>
+            </RadioStyling>
+          </div>
           <div>
-            <TextField
-              name="contact"
-              label="Contato"
-              inputRef={register}
-              error={!!errors.contact}
-              helperText={errors.contact?.message}
-            />
-          </div>
-          <div className="password">
-            <TextField
-              name="password"
-              label="Senha"
-              inputRef={register}
-              error={!!errors.password}
-              helperText={errors.password?.message}
-              type={values.showPassword ? "text" : "password"}
-              onChange={handleChange("password")}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="togle password visibility"
-                      onClick={handleClickShowPassword}
-                      edge="end"
-                    >
-                      {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
-          </div>
-          <div className="password">
-            <TextField
-              name="password_confirmation"
-              label="Confirme a senha"
-              inputRef={register}
-              error={!!errors.password_confirmation}
-              helperText={errors.password_confirmation?.message}
-              type={values.showPassword ? "text" : "password"}
-              onChange={handleChange("password")}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="togle password visibility"
-                      onClick={handleClickShowPassword}
-                      edge="end"
-                    >
-                      {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
-          </div>
-          <div className="buttonStyled">
-            <ButtonStyled type="submit">Enviar</ButtonStyled>
+            <div>
+              <TextField
+                name="contact"
+                label="Contato"
+                inputRef={register}
+                error={!!errors.contact}
+                helperText={errors.contact?.message}
+              />
+            </div>
+            <div className="password">
+              <TextField
+                name="password"
+                label="Senha"
+                inputRef={register}
+                error={!!errors.password}
+                helperText={errors.password?.message}
+                type={values.showPassword ? "text" : "password"}
+                onChange={handleChange("password")}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="togle password visibility"
+                        onClick={handleClickShowPassword}
+                        edge="end"
+                      >
+                        {values.showPassword ? (
+                          <Visibility />
+                        ) : (
+                          <VisibilityOff />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </div>
+            <div className="password">
+              <TextField
+                name="password_confirmation"
+                label="Confirme a senha"
+                inputRef={register}
+                error={!!errors.password_confirmation}
+                helperText={errors.password_confirmation?.message}
+                type={values.showPassword ? "text" : "password"}
+                onChange={handleChange("password")}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="togle password visibility"
+                        onClick={handleClickShowPassword}
+                        edge="end"
+                      >
+                        {values.showPassword ? (
+                          <Visibility />
+                        ) : (
+                          <VisibilityOff />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </div>
+            <div className="buttonStyled">
+              <ButtonStyled type="submit">Enviar</ButtonStyled>
+            </div>
           </div>
         </form>
       </ContainerStyled>
