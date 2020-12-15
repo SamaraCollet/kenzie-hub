@@ -9,11 +9,10 @@ import { useHistory } from "react-router-dom";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import TextField from "@material-ui/core/TextField";
 import FormControl from "@material-ui/core/FormControl";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormLabel from "@material-ui/core/FormLabel";
+import InputLabel from "@material-ui/core/InputLabel";
+import Select from "@material-ui/core/Select";
 import IconButton from "@material-ui/core/IconButton";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import Radio from "@material-ui/core/Radio";
+import MenuItem from "@material-ui/core/MenuItem";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
@@ -110,38 +109,26 @@ const RegisterPage = () => {
           </div>
           <RadioStyling>
             <FormControl>
-              <FormLabel>Módulo</FormLabel>
-              <RadioGroup
+              <InputLabel>Módulo</InputLabel>
+              <Select
                 name="course_module"
-                label="Modulo"
                 value={values.module}
                 onChange={handleChange("module")}
+                inputRef={register}
               >
-                <FormControlLabel
-                  value="Primeiro módulo (Introdução ao Frontend)"
-                  inputRef={register}
-                  control={<Radio color="primary" />}
-                  label="Primeiro módulo (Introdução ao Frontend)"
-                />
-                <FormControlLabel
-                  value="Segundo módulo (Frontend Avançado)"
-                  inputRef={register}
-                  control={<Radio color="primary" />}
-                  label="Segundo módulo (Frontend Avançado)"
-                />
-                <FormControlLabel
-                  value="Terceiro módulo (Introdução ao Backend)"
-                  inputRef={register}
-                  control={<Radio color="primary" />}
-                  label="Terceiro módulo (Introdução ao Backend)"
-                />
-                <FormControlLabel
-                  value="Quarto módulo (Backend Avançado)"
-                  inputRef={register}
-                  control={<Radio color="primary" />}
-                  label="Quarto módulo (Backend Avançado)"
-                />
-              </RadioGroup>
+                <MenuItem value="Primeiro módulo (Introdução ao Frontend)">
+                  Primeiro módulo (Introdução ao Frontend)
+                </MenuItem>
+                <MenuItem value="Segundo módulo (Frontend Avançado)">
+                  Segundo módulo (Frontend Avançado)
+                </MenuItem>
+                <MenuItem value="Terceiro módulo (Introdução ao Backend)">
+                  Terceiro módulo (Introdução ao Backend){" "}
+                </MenuItem>
+                <MenuItem value="Quarto módulo (Backend Avançado)">
+                  Quarto módulo (Backend Avançado)
+                </MenuItem>
+              </Select>
             </FormControl>
           </RadioStyling>
           <div>
