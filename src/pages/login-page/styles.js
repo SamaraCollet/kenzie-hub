@@ -2,18 +2,16 @@ import styled from "styled-components";
 import { Container } from "../../styles/styles_login_register";
 
 export const ContainerStyled = styled(Container)`
-  height: 60vh;
+  height: 370px;
 
   h1 {
     margin-bottom: 15px;
   }
   @media (max-width: 1200px) {
-    width: 34%;
-    height: 380px;
+    width: 340px;
   }
   @media (min-width: 768px) and (max-width: 979px) {
-    width: 55%;
-    height: 280px;
+    height: 290px;
     margin-top: 16vh;
     h1 {
       font-size: 1.5rem;
@@ -30,7 +28,6 @@ export const ContainerStyled = styled(Container)`
     }
   }
   @media only screen and (max-width: 767px) {
-    width: 55%;
     height: 280px;
     margin-top: 16vh;
     input {

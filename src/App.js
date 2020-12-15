@@ -15,8 +15,10 @@ import MyProfile from './pages/my-profile'
 import NotAuthorized from './pages/not-authorized'
 
 function App() {
-  const dispatch = useDispatch()
-  localStorage.hasOwnProperty("authToken") ? (dispatch(addUserToken(localStorage.getItem('authToken')))) : (dispatch(addUserToken('')))
+  const dispatch = useDispatch();
+  localStorage.hasOwnProperty("authToken")
+    ? dispatch(addUserToken(localStorage.getItem("authToken")))
+    : dispatch(addUserToken(""));
   return (
     <>
       <GlobalStyle></GlobalStyle>
