@@ -1,14 +1,14 @@
-import { SET_USER } from "./actionTypes";
+import { SET_TOKEN } from "./actionTypes";
 
-const setUserReducer = (state = '', action) => {
+const setUserTokenReducer = (state = '', action) => {
     switch (action.type) {
-        case SET_USER:
-            const { currentUser } = action;
-            return currentUser;
+        case SET_TOKEN:
+            const { currentUserToken } = action;
+            return currentUserToken;
 
         default:
             return state;
     }
 };
 
-export default setUserReducer;
+export default setUserTokenReducer;

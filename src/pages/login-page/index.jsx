@@ -11,6 +11,9 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import { addUserToken } from '../../store/modules/current-user/action'
+import { useDispatch } from 'react-redux'
+
 
 const Login = () => {
   const [values, setValues] = useState({
@@ -19,6 +22,7 @@ const Login = () => {
   });
 
   const history = useHistory();
+
 
   const handleChange = (prop) => (evt) => {
     setValues({ ...values, [prop]: evt.target.value });
@@ -37,10 +41,14 @@ const Login = () => {
     resolver: yupResolver(schema),
   });
 
+  const dispatch = useDispatch()
+
   const handleForm = (value) => {
     axios
       .post("https://kenziehub.me/sessions", { ...value })
       .then((res) => {
+        dispatch(addUserToken(res.data.token))
+        window.localStorage.setItem('userID', res.data.user.id)
         window.localStorage.setItem("authToken", res.data.token);
         history.push("/feed");
       })

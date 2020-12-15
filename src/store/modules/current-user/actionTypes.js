@@ -1,1 +1,1 @@
-export const SET_USER = '@set/USER'
+export const SET_TOKEN = '@set/USERTOKEN'
