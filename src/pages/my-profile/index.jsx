@@ -29,6 +29,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import { useState, useEffect } from "react";
 import { UserContainer, ContainerBio } from "./style";
 import axios from "axios";
+import { useHistory } from 'react-router-dom'
+import { useSelector } from "react-redux";
 
 const MyProfile = () => {
   const [isEditable, setEditable] = useState("");
@@ -36,9 +38,12 @@ const MyProfile = () => {
   const [currentUser, setUser] = useState({});
   const theme = useTheme();
   const [value, setValue] = useState(0);
-  const { id } = useParams();
-  const userID = window.localStorage.getItem("userID");
-  const token = window.localStorage.getItem("authToken");
+  const { id } = useParams()
+  const userToken = useSelector(state => state.currentUserToken)
+  const userID = window.localStorage.getItem('userID')
+  const history = useHistory()
+
+  !userToken && history.push('/notauthorized')
 
   const handleChange = (evt, newValue) => {
     setValue(newValue);
