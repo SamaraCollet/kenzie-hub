@@ -13,8 +13,8 @@ import IconButton from "@material-ui/core/IconButton";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import WorkIcon from "@material-ui/icons/Work";
-import { useParams } from 'react-router-dom'
-import BioConfig from '../../components/profile-configs/bio-config'
+import { useParams } from "react-router-dom";
+import BioConfig from "../../components/profile-configs/bio-config";
 
 import { useState, useEffect } from "react";
 import { UserContainer, ContainerBio } from "./style";
@@ -24,7 +24,7 @@ const MyProfile = () => {
   const [currentUser, setUser] = useState({});
   const theme = useTheme();
   const [value, setValue] = useState(0);
-  const userID = window.localStorage.getItem("userID")
+  const userID = window.localStorage.getItem("userID");
 
   const handleChange = (evt, newValue) => {
     setValue(newValue);
@@ -38,7 +38,7 @@ const MyProfile = () => {
     profileRequest(userID);
   }, []);
 
-  const profileRequest = id => {
+  const profileRequest = (id) => {
     axios
       .get(`https://kenziehub.me/users/${id}`)
       .then((res) => {
@@ -46,7 +46,6 @@ const MyProfile = () => {
       })
       .catch((err) => console.log(err));
   };
-
 
   return (
     <UserContainer>
