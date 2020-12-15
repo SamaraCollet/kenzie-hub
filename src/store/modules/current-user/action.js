@@ -1,6 +1,6 @@
-import { SET_USER } from './actionTypes'
+import { SET_TOKEN } from './actionTypes'
 
-export const addUser = currentUser => ({
-    type: SET_USER,
-    currentUser,
+export const addUserToken = currentUserToken => ({
+    type: SET_TOKEN,
+    currentUserToken,
 })
