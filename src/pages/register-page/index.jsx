@@ -15,6 +15,7 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuItem from "@material-ui/core/MenuItem";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import { Controller } from "react-hook-form";
 
 const RegisterPage = () => {
   const [values, setValues] = useState({
@@ -44,7 +45,7 @@ const RegisterPage = () => {
 
     bio: yup.string().required("Campo obrigatório"),
 
-    course_module: yup.string().required("Campo obrigatório"),
+    // course_module: yup.string().required("Campo obrigatório"),
 
     contact: yup.string().required("Campo obrigatório"),
 
@@ -62,13 +63,14 @@ const RegisterPage = () => {
       .oneOf([yup.ref("password")], "Senhas diferentes"),
   });
 
-  const { register, handleSubmit, errors } = useForm({
+  const { register, handleSubmit, errors, control } = useForm({
     resolver: yupResolver(schema),
   });
 
   const history = useHistory();
 
   const handleForm = (value) => {
+    console.log(value);
     axios
       .post(`https://kenziehub.me/users`, { ...value })
       .then((res) => history.push("/login"))
@@ -111,25 +113,30 @@ const RegisterPage = () => {
             <RadioStyling>
               <FormControl>
                 <InputLabel>Módulo</InputLabel>
-                <Select
+                <Controller
+                  as={
+                    <Select
+                      value={values.module}
+                      onChange={handleChange("module")}
+                      inputRef={register}
+                    >
+                      <MenuItem value="Primeiro módulo (Introdução ao Frontend)">
+                        Primeiro módulo (Introdução ao Frontend)
+                      </MenuItem>
+                      <MenuItem value="Segundo módulo (Frontend Avançado)">
+                        Segundo módulo (Frontend Avançado)
+                      </MenuItem>
+                      <MenuItem value="Terceiro módulo (Introdução ao Backend)">
+                        Terceiro módulo (Introdução ao Backend)
+                      </MenuItem>
+                      <MenuItem value="Quarto módulo (Backend Avançado)">
+                        Quarto módulo (Backend Avançado)
+                      </MenuItem>
+                    </Select>
+                  }
+                  control={control}
                   name="course_module"
-                  value={values.module}
-                  onChange={handleChange("module")}
-                  inputRef={register}
-                >
-                  <MenuItem value="Primeiro módulo (Introdução ao Frontend)">
-                    Primeiro módulo (Introdução ao Frontend)
-                  </MenuItem>
-                  <MenuItem value="Segundo módulo (Frontend Avançado)">
-                    Segundo módulo (Frontend Avançado)
-                  </MenuItem>
-                  <MenuItem value="Terceiro módulo (Introdução ao Backend)">
-                    Terceiro módulo (Introdução ao Backend){" "}
-                  </MenuItem>
-                  <MenuItem value="Quarto módulo (Backend Avançado)">
-                    Quarto módulo (Backend Avançado)
-                  </MenuItem>
-                </Select>
+                />
               </FormControl>
             </RadioStyling>
           </div>
