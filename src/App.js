@@ -16,8 +16,8 @@ import NotAuthorized from './pages/not-authorized'
 
 function App() {
   const dispatch = useDispatch();
-  localStorage.hasOwnProperty("authToken")
-    ? dispatch(addUserToken(localStorage.getItem("authToken")))
+  localStorage.hasOwnProperty("userInfos")
+    ? dispatch(addUserToken(JSON.parse(localStorage.getItem("userInfos"))))
     : dispatch(addUserToken(""));
   return (
     <>

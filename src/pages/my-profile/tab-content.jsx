@@ -28,3 +28,4 @@ TabContent.propTypes = {
 };
 
 export default TabContent;
+
