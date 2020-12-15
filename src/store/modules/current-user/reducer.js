@@ -1,6 +1,6 @@
 import { SET_TOKEN } from "./actionTypes";
 
-const setUserTokenReducer = (state = '', action) => {
+const setUserTokenReducer = (state = {}, action) => {
     switch (action.type) {
         case SET_TOKEN:
             const { currentUserToken } = action;

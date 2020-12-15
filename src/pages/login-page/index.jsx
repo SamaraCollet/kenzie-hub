@@ -47,8 +47,8 @@ const Login = () => {
     axios
       .post("https://kenziehub.me/sessions", { ...value })
       .then((res) => {
-        dispatch(addUserToken(res.data.token))
-        window.localStorage.setItem('userID', res.data.user.id)
+        dispatch(addUserToken(res.data))
+        window.localStorage.setItem('userInfos', JSON.stringify(res.data))
         window.localStorage.setItem("authToken", res.data.token);
         history.push("/feed");
       })
