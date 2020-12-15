@@ -11,8 +11,8 @@ const Feed = () => {
   const perPage = 6;
   const [currentPage, setCurrentPage] = useState(1);
   const [pageNumber, setPageNumber] = useState(0);
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(addUserThunk(perPage, currentPage));

@@ -25,7 +25,7 @@ const HeaderLogOut = () => {
             />
           </div>
           <div>
-            <Button color="inherit" onClick={() => history.push("/user")}>
+            <Button color="inherit" onClick={() => history.push("/myprofile")}>
               Meu perfil
             </Button>
             <Button color="inherit" onClick={logout}>
