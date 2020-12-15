@@ -22,6 +22,8 @@ import CreateIcon from '@material-ui/icons/Create';
 import { useState, useEffect } from "react";
 import { UserContainer, ContainerBio } from "./style";
 import axios from "axios";
+import { useHistory } from 'react-router-dom'
+import { useSelector } from "react-redux";
 
 const MyProfile = () => {
   const [isEditable, setEditable] = useState(false)
@@ -29,7 +31,11 @@ const MyProfile = () => {
   const theme = useTheme();
   const [value, setValue] = useState(0);
   const { id } = useParams()
+  const userToken = useSelector(state => state.currentUserToken)
   const userID = window.localStorage.getItem('userID')
+  const history = useHistory()
+
+  !userToken && history.push('/notauthorized')
 
   const handleChange = (evt, newValue) => {
     setValue(newValue);
