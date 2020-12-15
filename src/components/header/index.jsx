@@ -45,11 +45,11 @@ const Header = () => {
             <img
               src="/assets/logo.png"
               alt="logo"
-              onClick={() => history.push("/")}
+              onClick={() => history.push("/feed")}
             />
           </div>
           <div>
-            <Button color="inherit" onClick={() => history.push("/user")}>
+            <Button color="inherit" onClick={() => history.push("/myprofile")}>
               Meu perfil
             </Button>
             <Button color="inherit" onClick={logout}>
