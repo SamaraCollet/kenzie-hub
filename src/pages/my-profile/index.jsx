@@ -31,8 +31,9 @@ import { UserContainer, ContainerBio } from "./style";
 import axios from "axios";
 
 const MyProfile = () => {
+  const [change, setChange] = useState(false);
   const [isEditable, setEditable] = useState("");
-  const [formAddTechs, setFormAddTechs] = useState(false);
+  const [formAdd, setFormAdd] = useState("");
   const [currentUser, setUser] = useState({});
   const theme = useTheme();
   const [value, setValue] = useState(0);
@@ -49,13 +50,15 @@ const MyProfile = () => {
   };
 
   useEffect(() => {
-    profileRequest(id);
+    profileRequest();
   }, []);
 
   const profileRequest = () => {
     axios
       .get(`https://kenziehub.me/users/${userID}`)
       .then((res) => {
+        console.log(res.data);
+
         setUser(res.data);
       })
       .catch((err) => console.log(err));
@@ -86,7 +89,7 @@ const MyProfile = () => {
         Authorization: `Bearer ${token}`,
       },
       data: {
-        title: "HTML",
+        title: "JS",
         status: "Iniciante",
       },
     })
@@ -143,17 +146,17 @@ const MyProfile = () => {
 
             <TabContent value={value} index={1} dir={theme.direction}>
               <List>
-                {!formAddTechs ? (
-                  <IconButton onClick={() => setFormAddTechs(true)}>
+                {!formAdd ? (
+                  <IconButton onClick={() => setFormAdd(true)}>
                     <AddCircleOutlineIcon />
                   </IconButton>
                 ) : (
-                  <IconButton onClick={() => setFormAddTechs(false)}>
+                  <IconButton onClick={() => setFormAdd(false)}>
                     <CloseIcon />
                   </IconButton>
                 )}
 
-                {formAddTechs && (
+                {formAdd && (
                   <form onSubmit={handleFormAddTechs}>
                     <TextField
                       variant="outlined"
@@ -223,10 +226,31 @@ const MyProfile = () => {
             </TabContent>
 
             <TabContent value={value} index={2} dir={theme.direction}>
-              <List>
-                <IconButton>
+              {formAdd === "jobs" ? (
+                <div>
+                  <IconButton onClick={() => setFormAdd("")}>
+                    <CloseIcon />
+                  </IconButton>
+
+                  <form>
+                    <TextField placeholder="Título" variant="outlined" />
+                    <TextField
+                      placeholder="Descrição"
+                      variant="outlined"
+                      multiline
+                    />
+                    <Button type="submit" variant="outlined">
+                      Salvar
+                    </Button>
+                  </form>
+                </div>
+              ) : (
+                <IconButton onClick={() => setFormAdd("jobs")}>
                   <AddCircleOutlineIcon />
                 </IconButton>
+              )}
+
+              <List>
                 {currentUser.works ? (
                   currentUser.works.map((work, index) => (
                     <ListItem key={index}>
@@ -235,15 +259,29 @@ const MyProfile = () => {
                           <WorkIcon />
                         </Avatar>
                       </ListItemAvatar>
-                      <ListItemText
-                        primary={work.title}
-                        secondary={work.description}
-                      />
+                      {isEditable === work.id ? (
+                        <div>
+                          <TextField
+                            placeholder={work.name}
+                            variant="outlined"
+                          />
+                          <TextField variant="outlined" multiline />
+                        </div>
+                      ) : (
+                        <ListItemText
+                          primary={work.title}
+                          secondary={work.description}
+                        />
+                      )}
                       <ListItemSecondaryAction>
-                        <IconButton onClick={() => setEditable(true)}>
+                        <IconButton onClick={() => setEditable(work.id)}>
                           <CreateIcon />
                         </IconButton>
-                        <IconButton onClick={() => setEditable(true)}>
+                        <IconButton
+                          onClick={() => {
+                            setEditable(true);
+                          }}
+                        >
                           <DeleteIcon />
                         </IconButton>
                       </ListItemSecondaryAction>
