@@ -11,6 +11,7 @@ import Header from "./components/header";
 import UserPage from "./pages/user-page";
 import Feed from "./pages/feed-page";
 import PageNotFound from "./pages/page-not-found";
+import MyProfile from "./pages/my-profile";
 
 function App() {
   const dispatch = useDispatch();
@@ -33,7 +34,7 @@ function App() {
             <Feed />
           </Route>
           <Route exact path="/myprofile">
-            <UserPage /> {/*MyProfile*/}
+            <MyProfile />
           </Route>
           <Route exact path="/">
             <Home />

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ContainerHome = styled.div`
+export const ContainerHome = styled.div `
   background-color: #fff;
   display: flex;
   justify-content: center;
@@ -8,7 +8,7 @@ export const ContainerHome = styled.div`
   flex-direction: column;
 `;
 
-export const Banner = styled.div`
+export const Banner = styled.div `
   display: flex;
   flex-direction: row;
   padding-top: 15vh;
@@ -16,8 +16,8 @@ export const Banner = styled.div`
   align-items: center;
 
   .bannerContent {
-    width: 40vw;
-    margin-right: 30px;
+    width: 32vw;
+    margin-right: 40px;
   }
 
   div {
