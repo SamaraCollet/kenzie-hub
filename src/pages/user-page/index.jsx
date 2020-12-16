@@ -4,16 +4,15 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import { useTheme } from "@material-ui/core/styles";
 import SwipeableViews from "react-swipeable-views";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import TabContent from "./tab-content";
-import IconButton from "@material-ui/core/IconButton";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
-import WorkIcon from "@material-ui/icons/Work";
-import { useParams } from 'react-router-dom'
+import WorkOutline from "@material-ui/icons/WorkOutline";
+import CodeIcon from "@material-ui/icons/Code";
+import { useParams } from "react-router-dom";
 
 import { useState, useEffect } from "react";
 import { UserContainer, ContainerBio } from "./style";
@@ -23,7 +22,7 @@ const MyProfile = () => {
   const [currentUser, setUser] = useState({});
   const theme = useTheme();
   const [value, setValue] = useState(0);
-  const { id } = useParams()
+  const { id } = useParams();
 
   const handleChange = (evt, newValue) => {
     setValue(newValue);
@@ -45,7 +44,6 @@ const MyProfile = () => {
       })
       .catch((err) => console.log(err));
   };
-
 
   return (
     <UserContainer>
@@ -71,31 +69,47 @@ const MyProfile = () => {
             {/* Tab bio  */}
             <TabContent value={value} index={0}>
               <ContainerBio>
-                {!currentUser.avatar_url ? (
-                  <CircularProgress />
-                ) : (
-                  <img src={currentUser.avatar_url} alt="img profile" />
-                )}
-                <div>Nome: <span>{currentUser.name}</span></div>
-                <div>Bio: <span>{currentUser.bio}</span></div>
+                <div className="imageCard">
+                  <img
+                    alt="imgUser"
+                    src={
+                      currentUser.avatar_url
+                        ? currentUser.avatar_url
+                        : "/assets/user.png"
+                    }
+                  />
+                </div>
+                <div className="bio">
+                  <h1>{currentUser.name}</h1>
+                  <h2>
+                    <span>Bio:</span> {currentUser.bio}
+                  </h2>
+                </div>
               </ContainerBio>
             </TabContent>
 
-                    {/*TECHS*/}
+            {/*TECHS*/}
             <TabContent value={value} index={1} dir={theme.direction}>
               <List>
-                {currentUser.techs ? (
-                  currentUser.techs.map((tech, index) => (
-                    <ListItem key={index}>
-                      <ListItemText
-                        primary={tech.title}
-                        secondary={tech.status}
-                      />
-                    </ListItem>
-                  ))
-                ) : (
-                  <div>Carregando...</div>
-                )}
+                <div className="techs">
+                  {currentUser.techs ? (
+                    currentUser.techs.map((tech, index) => (
+                      <ListItem key={index}>
+                        <ListItemAvatar>
+                          <Avatar>
+                            <CodeIcon />
+                          </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                          primary={tech.title}
+                          secondary={tech.status}
+                        />
+                      </ListItem>
+                    ))
+                  ) : (
+                    <div>Carregando...</div>
+                  )}
+                </div>
               </List>
             </TabContent>
             <TabContent value={value} index={2} dir={theme.direction}>
@@ -105,7 +119,7 @@ const MyProfile = () => {
                     <ListItem key={index}>
                       <ListItemAvatar>
                         <Avatar>
-                          <WorkIcon />
+                          <WorkOutline />
                         </Avatar>
                       </ListItemAvatar>
                       <ListItemText
@@ -120,7 +134,9 @@ const MyProfile = () => {
               </List>
             </TabContent>
             <TabContent value={value} index={3} dir={theme.direction}>
-              {currentUser.course_module}
+              <div className="course">
+                <h2>{currentUser.course_module}</h2>
+              </div>
             </TabContent>
           </SwipeableViews>
         </Paper>
