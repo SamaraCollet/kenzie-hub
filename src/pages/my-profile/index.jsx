@@ -11,7 +11,6 @@ import {
 } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
 import SwipeableViews from "react-swipeable-views";
-import WorkIcon from "@material-ui/icons/Work";
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { UserContainer, ContainerBio } from "./style";
@@ -19,6 +18,7 @@ import axios from "axios";
 import CourseConfig from "../../components/profile-configs/course-config";
 import TabContent from "./tab-content";
 import BioConfig from "../../components/profile-configs/bio-config";
+import WorksConfig from "../../components/profile-configs/works-config";
 import NotAuthorized from "../../pages/not-authorized";
 
 const MyProfile = () => {
@@ -98,25 +98,9 @@ const MyProfile = () => {
                 </List>
               </TabContent>
               <TabContent value={value} index={2} dir={theme.direction}>
-                <List>
-                  {currentUser.works ? (
-                    currentUser.works.map((work, index) => (
-                      <ListItem key={index}>
-                        <ListItemAvatar>
-                          <Avatar>
-                            <WorkIcon />
-                          </Avatar>
-                        </ListItemAvatar>
-                        <ListItemText
-                          primary={work.title}
-                          secondary={work.description}
-                        />
-                      </ListItem>
-                    ))
-                  ) : (
-                    <div>Carregando...</div>
-                  )}
-                </List>
+                <ContainerBio>
+                  <WorksConfig />
+                </ContainerBio>
               </TabContent>
               <TabContent value={value} index={3} dir={theme.direction}>
                 <ContainerBio>
