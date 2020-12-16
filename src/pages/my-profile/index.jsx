@@ -1,20 +1,28 @@
-import {Avatar, ListItemAvatar, ListItemText, ListItem, List, Tab, Tabs,Paper, Container} from "@material-ui/core";
+import {Container, Paper, Tabs, Tab, Avatar, List, ListItem, ListItemAvatar, IconButton, CircularProgress, ListItemText} from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
-
 import SwipeableViews from "react-swipeable-views";
 import TabContent from "./tab-content";
-import WorkOutline from "@material-ui/icons/WorkOutline";
-import CodeIcon from "@material-ui/icons/Code";
+import WorkIcon from "@material-ui/icons/Work";
 import { useParams } from "react-router-dom";
+import BioConfig from "../../components/profile-configs/bio-config";
+import { useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
+import NotAuthorized from '../../pages/not-authorized'
+
 import { useState, useEffect } from "react";
 import { UserContainer, ContainerBio } from "./style";
 import axios from "axios";
 
 const MyProfile = () => {
+  const userInfos = useSelector(state => state.currentUserToken);
   const [currentUser, setUser] = useState({});
   const theme = useTheme();
   const [value, setValue] = useState(0);
-  const { id } = useParams();
+  const history = useHistory()
+
+
+  const userID = userInfos.user?.id
+  
 
   const handleChange = (evt, newValue) => {
     setValue(newValue);
@@ -25,12 +33,15 @@ const MyProfile = () => {
   };
 
   useEffect(() => {
-    profileRequest(id);
+    if(userID){
+      profileRequest(userID)
+    }
+    return;
   }, []);
 
-  const profileRequest = (userId) => {
+  const profileRequest = id => {
     axios
-      .get(`https://kenziehub.me/users/${userId}`)
+      .get(`https://kenziehub.me/users/${id}`)
       .then((res) => {
         setUser(res.data);
       })
@@ -39,6 +50,7 @@ const MyProfile = () => {
 
   return (
     <UserContainer>
+    {userID ? (
       <Container maxWidth="md">
         <Paper>
           <Tabs
@@ -58,50 +70,26 @@ const MyProfile = () => {
             index={value}
             onChangeIndex={handleChangeIndex}
           >
-            {/* Tab bio  */}
             <TabContent value={value} index={0}>
               <ContainerBio>
-                <div className="imageCard">
-                  <img
-                    alt="imgUser"
-                    src={
-                      currentUser.avatar_url
-                        ? currentUser.avatar_url
-                        : "/assets/user.png"
-                    }
-                  />
-                </div>
-                <div className="bio">
-                  <h1>{currentUser.name}</h1>
-                  <h2>
-                    <span>Bio:</span> {currentUser.bio}
-                  </h2>
-                </div>
+                <BioConfig />
               </ContainerBio>
             </TabContent>
 
-            {/*TECHS*/}
             <TabContent value={value} index={1} dir={theme.direction}>
               <List>
-                <div className="techs">
-                  {currentUser.techs ? (
-                    currentUser.techs.map((tech, index) => (
-                      <ListItem key={index}>
-                        <ListItemAvatar>
-                          <Avatar>
-                            <CodeIcon />
-                          </Avatar>
-                        </ListItemAvatar>
-                        <ListItemText
-                          primary={tech.title}
-                          secondary={tech.status}
-                        />
-                      </ListItem>
-                    ))
-                  ) : (
-                    <div>Carregando...</div>
-                  )}
-                </div>
+                {currentUser.techs ? (
+                  currentUser.techs.map((tech, index) => (
+                    <ListItem key={index}>
+                      <ListItemText
+                        primary={tech.title}
+                        secondary={tech.status}
+                      />
+                    </ListItem>
+                  ))
+                ) : (
+                  <div>Carregando...</div>
+                )}
               </List>
             </TabContent>
             <TabContent value={value} index={2} dir={theme.direction}>
@@ -111,7 +99,7 @@ const MyProfile = () => {
                     <ListItem key={index}>
                       <ListItemAvatar>
                         <Avatar>
-                          <WorkOutline />
+                          <WorkIcon />
                         </Avatar>
                       </ListItemAvatar>
                       <ListItemText
@@ -126,14 +114,14 @@ const MyProfile = () => {
               </List>
             </TabContent>
             <TabContent value={value} index={3} dir={theme.direction}>
-              <div className="course">
-                <h2>{currentUser.course_module}</h2>
-              </div>
+              {currentUser.course_module}
             </TabContent>
           </SwipeableViews>
         </Paper>
       </Container>
+    ) : (<NotAuthorized/>)}
     </UserContainer>
+    
   );
 };
 

@@ -1,53 +1,55 @@
 import styled from "styled-components";
 
-export const ContainerHome = styled.div`
-  @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap");
+export const ContainerHome = styled.div `
   background-color: #fff;
-  width: 100vw;
-  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  color: #161616;
-  font-family: "Open Sans", sans-serif;
 `;
 
-export const Banner = styled.div`
-  width: 100vw;
+export const Banner = styled.div `
   display: flex;
   flex-direction: row;
-  padding-top: 6vh;
+  padding-top: 15vh;
   justify-content: center;
   align-items: center;
-  h1 {
-    font-size: 3.2rem;
-    margin: 0;
-    margin-bottom: 22px;
-    text-shadow: 1.6px 1px 1px #1480fb;
-    line-height: 1.2;
+
+  .bannerContent {
+    width: 32vw;
+    margin-right: 40px;
   }
+
   div {
     width: 40vw;
   }
+
+  h1 {
+    font-size: 3.5rem;
+    text-shadow: 1.6px 1px 1px #1480fb;
+    line-height: 1.2;
+  }
+
+  p {
+    line-height: 1.6;
+    width: 100%;
+    margin-bottom: 40px;
+    font-size: 1.1rem;
+  }
+
   img {
     width: 45vw;
     border-radius: 40px;
   }
+
   button {
-    width: 150px;
+    width: 155px;
     font-size: 1.2rem;
     color: #fff;
     background-color: #1480fb;
     border: 2px solid #146dd3;
-    border-radius: 10px;
     height: 35px;
     margin-right: 15px;
-  }
-  button:focus {
-    outline: thin dotted;
-    outline: 0px auto -webkit-focus-ring-color;
-    outline-offset: 0px;
   }
   button:hover {
     background-color: #013b84;
@@ -66,14 +68,107 @@ export const Banner = styled.div`
     color: #fff;
   }
 
-  p {
-    line-height: 1.6;
-    width: 100%;
-    margin-bottom: 40px;
-    font-size: 1.1rem;
+  @media (max-width: 1200px) {
+    padding-top: 20vh;
+
+    h1 {
+      font-size: 3rem;
+    }
+    p {
+      font-size: 1rem;
+    }
+    div {
+      width: 45vw;
+    }
+    button {
+      width: 12vw;
+      font-size: 1.1rem;
+    }
   }
-  .bannerContent {
-    width: 32vw;
-    margin-right: 40px;
+  @media (max-width: 1130px) {
+    padding-top: 22vh;
+  }
+  @media (max-width: 1015px) {
+    img {
+      width: 50vw;
+    }
+  }
+  @media (min-width: 768px) and (max-width: 979px) {
+    width: 100%;
+    padding-top: 23vh;
+    h1 {
+      font-size: 2.5rem;
+    }
+    p {
+      font-size: 0.9rem;
+    }
+    div {
+      width: 50vw;
+    }
+    img {
+      width: 53vw;
+    }
+    button {
+      width: 15vw;
+      font-size: 1rem;
+    }
+    .bannerContent {
+      width: 37vw;
+    }
+  }
+  @media only screen and (max-width: 767px) {
+    flex-wrap: wrap;
+    h1 {
+      font-size: 2rem;
+    }
+    p {
+      font-size: 0.8rem;
+      margin-bottom: 20px;
+    }
+    button {
+      width: 16vw;
+      font-size: 0.8rem;
+    }
+    img {
+      width: 48vw;
+    }
+    .bannerContent {
+      width: 47vw;
+      margin-right: 2px;
+    }
+  }
+  @media (max-width: 480px) {
+    padding-top: 18vh;
+    width: 100%;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    div {
+      width: 100%;
+    }
+    p {
+      font-size: 1rem;
+    }
+    .bannerContent {
+      width: 100%;
+      margin: 0;
+      padding: 0 25px;
+    }
+    button {
+      width: 120px;
+      font-size: 0.9rem;
+      margin: 0;
+    }
+    button:last-child {
+      margin-left: 12px;
+    }
+    img {
+      width: 60vw;
+    }
+  }
+  @media (max-width: 300px) {
+    button:last-child {
+      margin: 5px 0 0;
+    }
   }
 `;

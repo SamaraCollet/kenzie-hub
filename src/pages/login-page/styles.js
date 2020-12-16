@@ -1,25 +1,57 @@
 import styled from "styled-components";
+import { Container } from "../../styles/styles_login_register";
 
-export const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 30%;
-  box-shadow: 0 0 5px 1px #444;
-  padding: 1rem;
+export const ContainerStyled = styled(Container)`
+  height: 370px;
 
-  .input-button-login,
-  .input-text-login {
-    width: 100%;
-    margin: 0.5rem;
+  h1 {
+    margin-bottom: 15px;
   }
-`;
-export const Main = styled.main`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: white;
-  width: 100%;
-  height: 100vh;
+  @media (max-width: 1200px) {
+    width: 340px;
+  }
+  @media (min-width: 768px) and (max-width: 979px) {
+    height: 290px;
+    margin-top: 16vh;
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 5px;
+    }
+    p {
+      margin: 2px 0;
+      font-size: 0.8rem;
+    }
+    .buttonStyled button {
+      width: 120px;
+      margin-top: 25px;
+      margin-bottom: 10px;
+    }
+  }
+  @media only screen and (max-width: 767px) {
+    height: 280px;
+    margin-top: 16vh;
+    input {
+      font-size: 0.7rem !important;
+    }
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 5px;
+    }
+    p {
+      margin: 2px 0;
+      font-size: 0.8rem;
+    }
+    .buttonStyled button {
+      width: 120px;
+      margin-top: 25px;
+      margin-bottom: 10px;
+    }
+  }
+  @media (max-width: 480px) {
+    width: 90%;
+    height: 50vh;
+    .buttonStyled button {
+      margin-bottom: 20px;
+    }
+  }
 `;

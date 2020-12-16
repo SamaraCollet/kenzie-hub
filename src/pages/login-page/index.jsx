@@ -1,22 +1,24 @@
-import { useForm } from "react-hook-form";
+import {InputAdornment, IconButton, TextField} from "@material-ui/core";
+import {VisibilityOff, Visibility} from "@material-ui/icons";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import axios from "axios";
-import { useHistory } from "react-router-dom";
-import { Main, Container } from "./styles";
+import { ContainerStyled } from "./styles";
+import { Main, ButtonStyled } from "../../styles/styles_login_register";
+import { addUserToken } from '../../store/modules/current-user/action'
+import { useDispatch } from 'react-redux'
 import { useState } from "react";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import IconButton from "@material-ui/core/IconButton";
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import axios from "axios";
+import { Link, useHistory } from "react-router-dom";
 
 const Login = () => {
   const [values, setValues] = useState({
     password: "",
     showPassword: false,
   });
+
+  const history = useHistory();
+
 
   const handleChange = (prop) => (evt) => {
     setValues({ ...values, [prop]: evt.target.value });
@@ -35,14 +37,16 @@ const Login = () => {
     resolver: yupResolver(schema),
   });
 
-  const history = useHistory();
+  const dispatch = useDispatch()
 
   const handleForm = (value) => {
     axios
       .post("https://kenziehub.me/sessions", { ...value })
       .then((res) => {
+        dispatch(addUserToken(res.data))
+        window.localStorage.setItem('userInfos', JSON.stringify(res.data))
         window.localStorage.setItem("authToken", res.data.token);
-        console.log("funcionou");
+        history.push("/feed");
       })
 
       .catch((err) => {
@@ -52,8 +56,8 @@ const Login = () => {
 
   return (
     <Main>
-      <Container>
-        <h1>Kenzie Hub</h1>
+      <ContainerStyled>
+        <h1>kenzie hub</h1>
         <form onSubmit={handleSubmit(handleForm)}>
           <div>
             <TextField
@@ -65,7 +69,7 @@ const Login = () => {
             />
           </div>
 
-          <div>
+          <div className="password">
             <TextField
               name="password"
               label="Senha"
@@ -90,10 +94,14 @@ const Login = () => {
               }}
             />
           </div>
-          <button type="submit">Entrar</button>
+          <div className="buttonStyled">
+            <ButtonStyled type="submit">Entrar</ButtonStyled>
+          </div>
         </form>
-        <Button onClick={() => history.push("/register")}>Cadastre-se</Button>
-      </Container>
+        <p>
+          Ainda não é do grupo? <Link to="/register">Cadastre-se</Link>
+        </p>
+      </ContainerStyled>
     </Main>
   );
 };
