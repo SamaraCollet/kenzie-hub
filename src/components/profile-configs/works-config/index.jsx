@@ -4,8 +4,10 @@ import {
   ListItem,
   ListItemText,
   ListItemAvatar,
+  ListItemSecondaryAction,
   Avatar,
   TextField,
+  Link,
   Select,
   MenuItem,
   FormControl,
@@ -14,8 +16,10 @@ import {
 } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import CreateIcon from "@material-ui/icons/Create";
+import DeleteIcon from "@material-ui/icons/Delete";
 import { useSelector } from "react-redux";
 import WorkIcon from "@material-ui/icons/Work";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 import axios from "axios";
 import { Content } from "./style";
@@ -41,6 +45,17 @@ const WorksConfig = () => {
         title: `${workTitleInput}`,
         description: `${workDescriptionInput}`,
         deploy_url: `${workUrlInput}`,
+      },
+    })
+      .then((response) => console.log(response))
+      .catch((err) => console.log(err));
+  };
+  const handleDeleteWork = (ID) => {
+    axios({
+      method: "delete",
+      url: `https://kenziehub.me/users/works/${ID}`,
+      headers: {
+        Authorization: `Bearer ${userInfos.token}`,
       },
     })
       .then((response) => console.log(response))
@@ -80,6 +95,16 @@ const WorksConfig = () => {
               </Avatar>
             </ListItemAvatar>
             <ListItemText primary={work.title} secondary={work.description} />
+            <ListItemSecondaryAction>
+              <IconButton onClick={() => handleDeleteWork(work.id)}>
+                <DeleteIcon />
+              </IconButton>
+              <Link href={work.deploy_url}>
+                <IconButton>
+                  <ExitToAppIcon />
+                </IconButton>
+              </Link>
+            </ListItemSecondaryAction>
           </ListItem>
         ))}
       </List>
