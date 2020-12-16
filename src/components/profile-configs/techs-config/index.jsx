@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   List,
   ListItem,
@@ -8,8 +8,10 @@ import {
   MenuItem,
   FormControl,
   Button,
+  IconButton,
 } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
+import CreateIcon from "@material-ui/icons/Create";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { Content } from "./style";
@@ -17,9 +19,8 @@ import { Content } from "./style";
 const TechConfig = () => {
   const [techInput, setInput] = useState("");
   const [level, setLevel] = useState("Básico");
+  const [isEditable, setIsEditable] = useState(false);
   const userInfos = useSelector((state) => state.currentUserToken);
-  const userID = userInfos.user?.id;
-
   const handleLevel = (evt) => {
     setLevel(evt.target.value);
   };
@@ -28,9 +29,12 @@ const TechConfig = () => {
     setInput(evt.target.value);
   };
 
+  const handleEditable = () => {
+    setIsEditable(true);
+  };
   console.log(userInfos);
 
-  const handleTech = (evt) => {
+  const createTech = (evt) => {
     evt.preventDefault();
     axios({
       method: "post",
@@ -44,7 +48,7 @@ const TechConfig = () => {
 
   return (
     <>
-      <form onSubmit={handleTech}>
+      <form onSubmit={createTech}>
         <Content>
           <FormControl>
             <TextField name="title" value={techInput} onChange={handleInput} />
@@ -69,11 +73,18 @@ const TechConfig = () => {
         </Content>
       </form>
       <List>
-        {userInfos.user.techs ? (
+        {isEditable ? (
+          <div>AAAAAAAA</div>
+        ) : userInfos.user.techs ? (
           userInfos.user.techs.map((tech, index) => (
-            <ListItem key={index}>
-              <ListItemText primary={tech.title} secondary={tech.status} />
-            </ListItem>
+            <>
+              <ListItem key={index}>
+                <ListItemText primary={tech.title} secondary={tech.status} />
+                <IconButton>
+                  <CreateIcon onClick={handleEditable} />
+                </IconButton>
+              </ListItem>
+            </>
           ))
         ) : (
           <div>Carregando...</div>
