@@ -11,6 +11,7 @@ import {
   IconButton,
   Avatar,
   ListItemAvatar,
+  Popover,
 } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import CodeIcon from "@material-ui/icons/Code";
@@ -26,19 +27,22 @@ const TechConfig = () => {
   const [newLevel, setNewLevel] = useState("Básico");
   const [isEditable, setIsEditable] = useState(false);
   const [techID, setTechID] = useState("");
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const userInfos = useSelector((state) => state.currentUserToken);
+  const open = Boolean(anchorEl);
+  const id = open ? "popover" : undefined;
 
-  const handleLevel = (evt) => {
-    setLevel(evt.target.value);
+  const handleClick = (evt, setState) => {
+    setState(evt.currentTarget);
   };
 
-  const handleNewLevel = (evt) => {
-    setNewLevel(evt.target.value);
+  const handleClose = () => {
+    setAnchorEl(null);
   };
 
-  const handleInput = (evt) => {
-    setInput(evt.target.value);
+  const handleTargetValue = (evt, setState) => {
+    setState(evt.target.value);
   };
 
   const handleEditable = () => {
@@ -71,7 +75,6 @@ const TechConfig = () => {
   };
 
   const deleteTech = (evt) => {
-    evt.preventDefault();
     axios({
       method: "delete",
       url: `https://kenziehub.me/users/techs/${techID}`,
@@ -90,7 +93,9 @@ const TechConfig = () => {
               label="Tecnologia"
               name="title"
               value={techInput}
-              onChange={handleInput}
+              onChange={(evt) => {
+                handleTargetValue(evt, setInput);
+              }}
             />
           </FormControl>
           <FormControl>
@@ -98,7 +103,9 @@ const TechConfig = () => {
               label="Nível"
               name="status"
               value={level}
-              onChange={handleLevel}
+              onChange={(evt) => {
+                handleTargetValue(evt, setLevel);
+              }}
             >
               <MenuItem value="Iniciante">Básico</MenuItem>
               <MenuItem value="Intermediário">Intermediário</MenuItem>
@@ -121,7 +128,9 @@ const TechConfig = () => {
                   label="Nível"
                   name="status"
                   value={newLevel}
-                  onChange={handleNewLevel}
+                  onChange={(evt) => {
+                    handleTargetValue(evt, setNewLevel);
+                  }}
                 >
                   <MenuItem value="Iniciante">Básico</MenuItem>
                   <MenuItem value="Intermediário">Intermediário</MenuItem>
@@ -153,7 +162,31 @@ const TechConfig = () => {
                   />
                 </IconButton>
                 <IconButton>
-                  <DeleteIcon onClick={deleteTech} />
+                  <DeleteIcon
+                    onClick={(evt) => {
+                      setTechID(tech.id);
+                      handleClick(evt, setAnchorEl);
+                    }}
+                  />
+                  <Popover
+                    id={id}
+                    open={open}
+                    anchorEl={anchorEl}
+                    onClose={handleClose}
+                    anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+                    transformOrigin={{ vertical: "top", horizontal: "center" }}
+                  >
+                    <h2>Tem certeza?</h2>
+                    <Button
+                      onClick={() => {
+                        deleteTech();
+                        handleClose();
+                      }}
+                    >
+                      Sim
+                    </Button>
+                    <Button onClick={handleClose}>Não</Button>
+                  </Popover>
                 </IconButton>
               </ListItem>
             </>
