@@ -72,12 +72,82 @@ export const UserContainer = styled.div`
   }
   .MuiContainer-root.MuiContainer-maxWidthMd {
     width: 850px;
+    justify-content: center;
+    align-content: center;
   }
   .MuiPaper-root.MuiPaper-elevation1.MuiPaper-rounded {
-    box-shadow: 1px 1px 1px #afafaf, -1px 1px 1px #afafaf;
+    padding-top: 80px;
+    height: 100vh;
+    width: 70vw;
+    box-shadow: 1px 1px 1px #cecdcd, -1px 1px 1px #cecdcd;
   }
-  .MuiContainer-root.MuiContainer-maxWidthMd {
-    width: 100vh;
+  .MuiContainer-root.MuiContainer-maxWidthLg {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+  }
+  @media (min-width: 768px) and (max-width: 979px) {
+    .MuiPaper-root.MuiPaper-elevation1.MuiPaper-rounded {
+      width: 90vw;
+      box-shadow: none;
+    }
+  }
+
+  @media only screen and (max-width: 767px) {
+    img {
+      width: 120px;
+      height: 120px;
+    }
+
+    .imageCard {
+      width: 140px;
+      height: 140px;
+      margin: 5px;
+    }
+    .bio h1 {
+      font-size: 1.6rem;
+    }
+    .MuiPaper-root.MuiPaper-elevation1.MuiPaper-rounded {
+      box-shadow: none;
+      width: 100vw;
+    }
+  }
+  @media (max-width: 480px) {
+    .MuiContainer-root {
+      padding: 0;
+    }
+    .MuiButtonBase-root.MuiTab-root.MuiTab-textColorPrimary.Mui-selected {
+      color: #1480fb;
+      font-size: 0.7rem;
+    }
+    .PrivateTabIndicator-root-1.PrivateTabIndicator-colorPrimary-2.MuiTabs-indicator {
+      background-color: #1480fb;
+      width: 85px;
+    }
+    .MuiButtonBase-root.MuiTab-root.MuiTab-textColorPrimary {
+      font-size: 0.7rem;
+      width: 85px;
+      padding: 0;
+    }
+    img {
+      width: 140px;
+      height: 140px;
+    }
+
+    .imageCard {
+      width: 160px;
+      height: 160px;
+      margin-top: 10px;
+    }
+    .bio h1 {
+      font-size: 1.8rem;
+    }
+    .bio h2 {
+      font-size: 1.1rem;
+    }
+    .course h2 {
+      font-size: 1.1rem;
+    }
   }
 `;
 
@@ -93,12 +163,6 @@ export const ContainerBio = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  img {
-    border-radius: 50%;
-  }
-  .btnSalvar {
-    margin-top: 1rem;
-  }
 `;
 
 // @media (max-width: 1200px) {}

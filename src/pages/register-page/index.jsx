@@ -76,7 +76,7 @@ const RegisterPage = () => {
       .then((res) => history.push("/login"))
       .catch(() => {
         setError("email", { message: "Este email já está sendo utilizado" });
-      })
+      });
   };
 
   return (

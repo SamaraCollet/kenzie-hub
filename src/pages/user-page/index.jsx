@@ -47,7 +47,7 @@ const MyProfile = () => {
 
   return (
     <UserContainer>
-      <Container maxWidth="md">
+      <Container>
         <Paper>
           <Tabs
             value={value}
