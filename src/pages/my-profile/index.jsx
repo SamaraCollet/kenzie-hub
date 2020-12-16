@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import { UserContainer, ContainerBio } from "./style";
 import axios from "axios";
 
+import CourseConfig from '../../components/profile-configs/course-config'
 import TabContent from "./tab-content";
 import BioConfig from "../../components/profile-configs/bio-config";
 import WorksConfig from "../../components/profile-configs/works-config";
