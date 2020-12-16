@@ -10,6 +10,7 @@ import Alert from "@material-ui/lab/Alert";
 import { useHistory } from "react-router-dom";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import { Container } from "./styles";
 
 import { addUserToken } from "../../../../store/modules/current-user/action";
 
@@ -74,7 +75,7 @@ const BioConfig = () => {
 
   console.log(user);
   return (
-    <>
+    <Container>
       <Snackbar
         open={snackBar}
         autoHideDuration={6000}
@@ -83,7 +84,7 @@ const BioConfig = () => {
         <Alert severity="success">Senha alterada com sucesso!</Alert>
       </Snackbar>
       <form onSubmit={handleSubmit(handleForm)}>
-        <div>
+        <div className="password">
           <TextField
             name="old_password"
             label="Senha Antiga:"
@@ -108,7 +109,7 @@ const BioConfig = () => {
             }}
           />
         </div>
-        <div>
+        <div className="password">
           <TextField
             name="password"
             label="Nova Senha:"
@@ -133,11 +134,11 @@ const BioConfig = () => {
             }}
           />
         </div>
-        <div>
+        <div className="buttonStyled">
           <Button type="submit">Alterar</Button>
         </div>
       </form>
-    </>
+    </Container>
   );
 };
 

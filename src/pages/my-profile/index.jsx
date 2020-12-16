@@ -11,6 +11,7 @@ import {
 } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
 import SwipeableViews from "react-swipeable-views";
+import WorkIcon from "@material-ui/icons/Work";
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { UserContainer, ContainerBio } from "./style";
@@ -57,7 +58,7 @@ const MyProfile = () => {
   return (
     <UserContainer>
       {userID ? (
-        <Container maxWidth="md">
+        <Container>
           <Paper>
             <Tabs
               value={value}

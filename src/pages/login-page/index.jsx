@@ -1,8 +1,8 @@
 import { ContainerStyled } from "./styles";
-import {InputAdornment, IconButton, TextField} from "@material-ui/core";
-import {VisibilityOff, Visibility} from "@material-ui/icons";
+import { InputAdornment, IconButton, TextField } from "@material-ui/core";
+import { VisibilityOff, Visibility } from "@material-ui/icons";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useDispatch } from 'react-redux'
+import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
@@ -10,7 +10,7 @@ import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
 
 import { Main, ButtonStyled } from "../../styles/styles_login_register";
-import { addUserToken } from '../../store/modules/current-user/action'
+import { addUserToken } from "../../store/modules/current-user/action";
 
 const Login = () => {
   const [values, setValues] = useState({
@@ -19,7 +19,6 @@ const Login = () => {
   });
 
   const history = useHistory();
-
 
   const handleChange = (prop) => (evt) => {
     setValues({ ...values, [prop]: evt.target.value });
@@ -38,14 +37,14 @@ const Login = () => {
     resolver: yupResolver(schema),
   });
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const handleForm = (value) => {
     axios
       .post("https://kenziehub.me/sessions", { ...value })
       .then((res) => {
-        dispatch(addUserToken(res.data))
-        window.localStorage.setItem('userInfos', JSON.stringify(res.data))
+        dispatch(addUserToken(res.data));
+        window.localStorage.setItem("userInfos", JSON.stringify(res.data));
         window.localStorage.setItem("authToken", res.data.token);
         history.push("/feed");
       })

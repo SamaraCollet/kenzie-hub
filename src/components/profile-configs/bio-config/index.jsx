@@ -6,12 +6,12 @@ import { useSelector } from "react-redux";
 import { TextField, Button, Snackbar } from "@material-ui/core";
 import { useState } from "react";
 import Alert from "@material-ui/lab/Alert";
+import { Container } from "./styles";
 
 import ChangePassword from "./ChangePassword";
 import BioAvatar from "./BioAvatar";
 
 const BioConfig = () => {
-
   const user = useSelector((state) => state.currentUserToken);
 
   const userInfo = user.user;
@@ -31,7 +31,6 @@ const BioConfig = () => {
     resolver: yupResolver(schema),
   });
 
-
   const handleForm = (value) => {
     axios({
       method: "put",
@@ -44,7 +43,7 @@ const BioConfig = () => {
   };
 
   return (
-    <>
+    <Container>
       <Snackbar
         open={snackBar}
         autoHideDuration={6000}
@@ -90,12 +89,12 @@ const BioConfig = () => {
             multiline
           />
         </div>
-        <div>
+        <div className="buttonStyled">
           <Button type="submit">Salvar</Button>
         </div>
       </form>
       <ChangePassword token={user.token} />
-    </>
+    </Container>
   );
 };
 
