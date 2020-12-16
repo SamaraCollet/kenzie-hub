@@ -21,6 +21,7 @@ const BioAvatar = ({ token, actualImg }) => {
   return (
     <div>
       <img
+        alt="Profile_img"
         src={actualImg ? actualImg : "/assets/user.png"}
         width="100"
         height="100"

@@ -1,5 +1,5 @@
-import Button from "@material-ui/core/Button";
 import { CardStyled } from "./style";
+import Button from "@material-ui/core/Button";
 import { useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom'
 

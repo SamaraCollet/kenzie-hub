@@ -1,24 +1,21 @@
-import {Container, Paper, Tabs, Tab, Avatar, List, ListItem, ListItemAvatar, IconButton, CircularProgress, ListItemText} from "@material-ui/core";
+import {Container, Paper, Tabs, Tab, Avatar, List, ListItem, ListItemAvatar, ListItemText} from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
 import SwipeableViews from "react-swipeable-views";
-import TabContent from "./tab-content";
 import WorkIcon from "@material-ui/icons/Work";
-import { useParams } from "react-router-dom";
-import BioConfig from "../../components/profile-configs/bio-config";
 import { useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
-import NotAuthorized from '../../pages/not-authorized'
-
 import { useState, useEffect } from "react";
 import { UserContainer, ContainerBio } from "./style";
 import axios from "axios";
+
+import TabContent from "./tab-content";
+import BioConfig from "../../components/profile-configs/bio-config";
+import NotAuthorized from '../../pages/not-authorized'
 
 const MyProfile = () => {
   const userInfos = useSelector(state => state.currentUserToken);
   const [currentUser, setUser] = useState({});
   const theme = useTheme();
   const [value, setValue] = useState(0);
-  const history = useHistory()
 
 
   const userID = userInfos.user?.id
