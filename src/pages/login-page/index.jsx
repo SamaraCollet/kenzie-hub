@@ -1,3 +1,4 @@
+import {InputAdornment, IconButton} from "@material-ui/core";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -7,8 +8,6 @@ import { Link, useHistory } from "react-router-dom";
 import { ContainerStyled } from "./styles";
 import { Main, ButtonStyled } from "../../styles/styles_login_register";
 import { useState } from "react";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import IconButton from "@material-ui/core/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { addUserToken } from '../../store/modules/current-user/action'
