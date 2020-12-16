@@ -19,6 +19,7 @@ import axios from "axios";
 import CourseConfig from "../../components/profile-configs/course-config";
 import TabContent from "./tab-content";
 import BioConfig from "../../components/profile-configs/bio-config";
+import TechConfig from "../../components/profile-configs/techs-config";
 import NotAuthorized from "../../pages/not-authorized";
 
 const MyProfile = () => {
@@ -82,20 +83,7 @@ const MyProfile = () => {
               </TabContent>
 
               <TabContent value={value} index={1} dir={theme.direction}>
-                <List>
-                  {currentUser.techs ? (
-                    currentUser.techs.map((tech, index) => (
-                      <ListItem key={index}>
-                        <ListItemText
-                          primary={tech.title}
-                          secondary={tech.status}
-                        />
-                      </ListItem>
-                    ))
-                  ) : (
-                    <div>Carregando...</div>
-                  )}
-                </List>
+                <TechConfig />
               </TabContent>
               <TabContent value={value} index={2} dir={theme.direction}>
                 <List>
