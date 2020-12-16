@@ -1,10 +1,10 @@
 import { Container, Cards } from "./style";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { addUserThunk } from "../../store/modules/users-list/thunk";
 import { Pagination } from "antd";
 import axios from "axios";
 
+import { addUserThunk } from "../../store/modules/users-list/thunk";
 import UsersCards from "../../components/users-cards";
 
 const Feed = () => {
@@ -17,7 +17,7 @@ const Feed = () => {
   useEffect(() => {
     dispatch(addUserThunk(perPage, currentPage));
     pageSwitch(currentPage);
-  }, [currentPage]); // eslint-disable-line
+  }, [currentPage]);
 
   useEffect(() => {
     axios

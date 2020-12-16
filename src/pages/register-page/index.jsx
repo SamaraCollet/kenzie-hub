@@ -1,22 +1,14 @@
-import {
-  MenuItem,
-  IconButton,
-  Select,
-  InputLabel,
-  FormControl,
-  TextField,
-  InputAdornment,
-} from "@material-ui/core";
+import { MenuItem, IconButton, Select, InputLabel, FormControl, TextField, InputAdornment} from "@material-ui/core";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
-
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { ContainerStyled, RadioStyling } from "./styles";
-import { Main, ButtonStyled } from "../../styles/styles_login_register";
 import axios from "axios";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Controller, useForm } from "react-hook-form";
+
+import { Main, ButtonStyled } from "../../styles/styles_login_register";
 
 const RegisterPage = () => {
   const [values, setValues] = useState({
@@ -45,8 +37,6 @@ const RegisterPage = () => {
     email: yup.string().required("Campo obrigatório").email("Email inválido"),
 
     bio: yup.string().required("Campo obrigatório"),
-
-    // course_module: yup.string().required("Campo obrigatório"),
 
     contact: yup.string().required("Campo obrigatório"),
 

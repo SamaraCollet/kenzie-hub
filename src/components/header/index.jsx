@@ -1,9 +1,9 @@
+import { Container, ToolbarStyled } from "./style";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux'
-import { Container, ToolbarStyled } from "./style";
+import { AppBar, Button } from "@material-ui/core";
+
 import { addUserToken } from '../../store/modules/current-user/action'
-import AppBar from "@material-ui/core/AppBar";
-import Button from "@material-ui/core/Button";
 
 const Header = () => {
   const userToken = useSelector((state) => state.currentUserToken);
