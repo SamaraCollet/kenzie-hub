@@ -9,8 +9,11 @@ import {
   FormControl,
   Button,
   IconButton,
+  Avatar,
+  ListItemAvatar,
 } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
+import CodeIcon from "@material-ui/icons/Code";
 import CreateIcon from "@material-ui/icons/Create";
 import { useSelector } from "react-redux";
 import axios from "axios";
@@ -51,7 +54,12 @@ const TechConfig = () => {
       <form onSubmit={createTech}>
         <Content>
           <FormControl>
-            <TextField name="title" value={techInput} onChange={handleInput} />
+            <TextField
+              label="Tecnologia"
+              name="title"
+              value={techInput}
+              onChange={handleInput}
+            />
           </FormControl>
           <FormControl>
             <Select
@@ -79,6 +87,11 @@ const TechConfig = () => {
           userInfos.user.techs.map((tech, index) => (
             <>
               <ListItem key={index}>
+                <ListItemAvatar>
+                  <Avatar>
+                    <CodeIcon />
+                  </Avatar>
+                </ListItemAvatar>
                 <ListItemText primary={tech.title} secondary={tech.status} />
                 <IconButton>
                   <CreateIcon onClick={handleEditable} />
