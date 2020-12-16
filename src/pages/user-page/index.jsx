@@ -34,7 +34,7 @@ const MyProfile = () => {
 
   useEffect(() => {
     profileRequest(id);
-  }, []);
+  }, []); // eslint-disable-line
 
   const profileRequest = (userId) => {
     axios

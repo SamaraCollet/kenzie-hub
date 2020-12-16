@@ -76,6 +76,9 @@ export const UserContainer = styled.div`
   .MuiPaper-root.MuiPaper-elevation1.MuiPaper-rounded {
     box-shadow: 1px 1px 1px #afafaf, -1px 1px 1px #afafaf;
   }
+  .MuiContainer-root.MuiContainer-maxWidthMd {
+    width: 100vh;
+  }
 `;
 
 export const TabContainer = styled.div`
@@ -97,3 +100,8 @@ export const ContainerBio = styled.div`
     margin-top: 1rem;
   }
 `;
+
+// @media (max-width: 1200px) {}
+// @media (min-width:768px) and (max-width:979px) {}
+// @media only screen and (max-width: 767px) {}
+// @media (max-width: 480px) {}
