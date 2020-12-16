@@ -15,7 +15,7 @@ const BioConfig = () => {
   const updatableData = useSelector((state) => state.newEdit);
   const dispatch = useDispatch();
 
-  const user = useSelector(state => state.currentUserToken)
+  const user = useSelector((state) => state.currentUserToken);
 
   const [snackBar, setSnackBar] = useState(false);
   const [txtName, setTxtName] = useState(updatableData.name);
@@ -32,8 +32,10 @@ const BioConfig = () => {
     resolver: yupResolver(schema),
   });
 
-  
+  console.log(updatableData);
+
   const handleForm = (value) => {
+    dispatch(userEdit(value));
     axios({
       method: "put",
       url: `https://kenziehub.me/profile`,
@@ -42,9 +44,6 @@ const BioConfig = () => {
       },
       data: value,
     }).then((response) => {
-      console.log(updatableData.name);
-      dispatch(userEdit(response.data));
-      console.log(updatableData.name);
       setSnackBar(true);
     });
   };

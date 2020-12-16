@@ -27,7 +27,7 @@ function App() {
 
   return (
     <>
-      <GlobalStyle></GlobalStyle>
+      <GlobalStyle />
       <div id="main-container">
         <Header />
         <Switch>
