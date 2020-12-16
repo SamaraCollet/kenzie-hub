@@ -2,24 +2,25 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { TextField, Button, Snackbar } from "@material-ui/core";
 import { useState } from "react";
 import Alert from "@material-ui/lab/Alert";
+import { userEdit } from "../../../store/modules/user-edit/action";
 
 import ChangePassword from "./ChangePassword";
 import BioAvatar from "./BioAvatar";
 
 const BioConfig = () => {
+  const updatableData = useSelector((state) => state.newEdit);
+  const dispatch = useDispatch();
 
-  const user = useSelector((state) => state.currentUserToken);
-
-  const userInfo = user.user;
+  const user = useSelector(state => state.currentUserToken)
 
   const [snackBar, setSnackBar] = useState(false);
-  const [txtName, setTxtName] = useState(userInfo.name);
-  const [txtContact, setTxtContact] = useState(userInfo.contact);
-  const [txtBio, setTxtBio] = useState(userInfo.bio);
+  const [txtName, setTxtName] = useState(updatableData.name);
+  const [txtContact, setTxtContact] = useState(updatableData.contact);
+  const [txtBio, setTxtBio] = useState(updatableData.bio);
 
   const schema = yup.object().shape({
     name: yup.string().required("Campo obrigatório"),
@@ -31,7 +32,7 @@ const BioConfig = () => {
     resolver: yupResolver(schema),
   });
 
-
+  
   const handleForm = (value) => {
     axios({
       method: "put",
@@ -40,7 +41,12 @@ const BioConfig = () => {
         Authorization: `Bearer ${user.token}`,
       },
       data: value,
-    }).then((response) => setSnackBar(true));
+    }).then((response) => {
+      console.log(updatableData.name);
+      dispatch(userEdit(response.data));
+      console.log(updatableData.name);
+      setSnackBar(true);
+    });
   };
 
   return (
@@ -54,7 +60,7 @@ const BioConfig = () => {
           Seus dados foram atualizados com sucesso!
         </Alert>
       </Snackbar>
-      <BioAvatar token={user.token} actualImg={userInfo.avatar_url} />
+      <BioAvatar token={user.token} actualImg={updatableData.avatar_url} />
       <form onSubmit={handleSubmit(handleForm)}>
         <div>
           <TextField
