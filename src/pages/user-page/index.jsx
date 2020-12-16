@@ -1,19 +1,11 @@
-import Container from "@material-ui/core/Container";
-import Paper from "@material-ui/core/Paper";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
+import {Avatar, ListItemAvatar, ListItemText, ListItem, List, Tab, Tabs,Paper, Container} from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
+
 import SwipeableViews from "react-swipeable-views";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
 import TabContent from "./tab-content";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Avatar from "@material-ui/core/Avatar";
 import WorkOutline from "@material-ui/icons/WorkOutline";
 import CodeIcon from "@material-ui/icons/Code";
 import { useParams } from "react-router-dom";
-
 import { useState, useEffect } from "react";
 import { UserContainer, ContainerBio } from "./style";
 import axios from "axios";
