@@ -1,34 +1,21 @@
-import Container from "@material-ui/core/Container";
-import Paper from "@material-ui/core/Paper";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
+import {Container, Paper, Tabs, Tab, Avatar, List, ListItem, ListItemAvatar, ListItemText} from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
 import SwipeableViews from "react-swipeable-views";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import TabContent from "./tab-content";
-import IconButton from "@material-ui/core/IconButton";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Avatar from "@material-ui/core/Avatar";
 import WorkIcon from "@material-ui/icons/Work";
-import { useParams } from "react-router-dom";
-import BioConfig from "../../components/profile-configs/bio-config";
 import { useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
-import NotAuthorized from '../../pages/not-authorized'
-
 import { useState, useEffect } from "react";
 import { UserContainer, ContainerBio } from "./style";
 import axios from "axios";
+
+import TabContent from "./tab-content";
+import BioConfig from "../../components/profile-configs/bio-config";
+import NotAuthorized from '../../pages/not-authorized'
 
 const MyProfile = () => {
   const userInfos = useSelector(state => state.currentUserToken);
   const [currentUser, setUser] = useState({});
   const theme = useTheme();
   const [value, setValue] = useState(0);
-  const history = useHistory()
 
 
   const userID = userInfos.user?.id

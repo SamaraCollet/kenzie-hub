@@ -1,21 +1,14 @@
-import { useForm } from "react-hook-form";
+import { MenuItem, IconButton, Select, InputLabel, FormControl, TextField, InputAdornment} from "@material-ui/core";
+import { Visibility, VisibilityOff } from "@material-ui/icons";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { ContainerStyled, RadioStyling } from "./styles";
-import { Main, ButtonStyled } from "../../styles/styles_login_register";
 import axios from "axios";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import TextField from "@material-ui/core/TextField";
-import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
-import Select from "@material-ui/core/Select";
-import IconButton from "@material-ui/core/IconButton";
-import MenuItem from "@material-ui/core/MenuItem";
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import { Controller } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
+
+import { Main, ButtonStyled } from "../../styles/styles_login_register";
 
 const RegisterPage = () => {
   const [values, setValues] = useState({
@@ -23,6 +16,7 @@ const RegisterPage = () => {
     showPassword: false,
     module: "Primeiro módulo (Introdução ao Frontend)",
   });
+  const [snackBar, setSnackBar] = useState(false);
 
   const handleChange = (prop) => (evt) => {
     setValues({ ...values, [prop]: evt.target.value });
@@ -44,8 +38,6 @@ const RegisterPage = () => {
     email: yup.string().required("Campo obrigatório").email("Email inválido"),
 
     bio: yup.string().required("Campo obrigatório"),
-
-    // course_module: yup.string().required("Campo obrigatório"),
 
     contact: yup.string().required("Campo obrigatório"),
 
@@ -73,7 +65,10 @@ const RegisterPage = () => {
     console.log(value);
     axios
       .post(`https://kenziehub.me/users`, { ...value })
-      .then((res) => history.push("/login"))
+      .then((res) => {
+        history.push("/login");
+        setSnackBar(true);
+      })
       .catch(() => {
         setError("email", { message: "Este email já está sendo utilizado" });
       });
