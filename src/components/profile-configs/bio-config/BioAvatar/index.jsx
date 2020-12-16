@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Container } from "./styles";
 
 const BioAvatar = ({ token, actualImg }) => {
   const handleAvatarChange = (e) => {
@@ -19,17 +20,17 @@ const BioAvatar = ({ token, actualImg }) => {
   };
 
   return (
-    <div>
-      <img
-        alt="Profile_img"
-        src={actualImg ? actualImg : "/assets/user.png"}
-        width="100"
-        height="100"
-      ></img>
+    <Container>
+      <div className="imageCard">
+        <img
+          alt="Profile_img"
+          src={actualImg ? actualImg : "/assets/user.png"}
+        ></img>
+      </div>
       <form>
         <input type="file" id="avatar" onChange={handleAvatarChange} />
       </form>
-    </div>
+    </Container>
   );
 };
 
