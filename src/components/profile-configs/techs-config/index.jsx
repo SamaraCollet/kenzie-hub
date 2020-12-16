@@ -12,6 +12,7 @@ import {
 } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import CreateIcon from "@material-ui/icons/Create";
+import DeleteIcon from "@material-ui/icons/Delete";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { Content } from "./style";
@@ -19,10 +20,18 @@ import { Content } from "./style";
 const TechConfig = () => {
   const [techInput, setInput] = useState("");
   const [level, setLevel] = useState("Básico");
+  const [newLevel, setNewLevel] = useState("Básico");
   const [isEditable, setIsEditable] = useState(false);
+  const [techID, setTechID] = useState("");
+
   const userInfos = useSelector((state) => state.currentUserToken);
+
   const handleLevel = (evt) => {
     setLevel(evt.target.value);
+  };
+
+  const handleNewLevel = (evt) => {
+    setNewLevel(evt.target.value);
   };
 
   const handleInput = (evt) => {
@@ -32,8 +41,6 @@ const TechConfig = () => {
   const handleEditable = () => {
     setIsEditable(true);
   };
-  console.log(userInfos);
-
   const createTech = (evt) => {
     evt.preventDefault();
     axios({
@@ -44,6 +51,31 @@ const TechConfig = () => {
       },
       data: { title: `${techInput}`, status: `${level}` },
     }).catch((err) => console.log(err));
+  };
+
+  const editTech = (evt) => {
+    evt.preventDefault();
+    axios({
+      method: "put",
+      url: `https://kenziehub.me/users/techs/${techID}`,
+      headers: {
+        Authorization: `Bearer ${userInfos.token}`,
+      },
+      data: { status: level },
+    }).then((res) => {
+      setIsEditable(false);
+    });
+  };
+
+  const deleteTech = (evt) => {
+    evt.preventDefault();
+    axios({
+      method: "delete",
+      url: `https://kenziehub.me/users/techs/${techID}`,
+      headers: {
+        Authorization: `Bearer ${userInfos.token}`,
+      },
+    });
   };
 
   return (
@@ -74,14 +106,41 @@ const TechConfig = () => {
       </form>
       <List>
         {isEditable ? (
-          <div>AAAAAAAA</div>
+          <form onSubmit={editTech}>
+            <Content>
+              <FormControl>
+                <Select
+                  label="Nível"
+                  name="status"
+                  value={newLevel}
+                  onChange={handleNewLevel}
+                >
+                  <MenuItem value="Iniciante">Básico</MenuItem>
+                  <MenuItem value="Intermediário">Intermediário</MenuItem>
+                  <MenuItem value="Avançado">Avançado</MenuItem>
+                </Select>
+              </FormControl>
+              <FormControl>
+                <Button type="submit">Atualizar</Button>
+              </FormControl>
+              <Button onClick={() => setIsEditable(false)}>Cancelar</Button>
+            </Content>
+          </form>
         ) : userInfos.user.techs ? (
           userInfos.user.techs.map((tech, index) => (
             <>
               <ListItem key={index}>
                 <ListItemText primary={tech.title} secondary={tech.status} />
                 <IconButton>
-                  <CreateIcon onClick={handleEditable} />
+                  <CreateIcon
+                    onClick={() => {
+                      setTechID(tech.id);
+                      handleEditable();
+                    }}
+                  />
+                </IconButton>
+                <IconButton>
+                  <DeleteIcon onClick={deleteTech} />
                 </IconButton>
               </ListItem>
             </>
