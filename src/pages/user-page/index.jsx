@@ -26,7 +26,7 @@ const MyProfile = () => {
 
   useEffect(() => {
     profileRequest(id);
-  }, []);
+  }, []); // eslint-disable-line
 
   const profileRequest = (userId) => {
     axios
@@ -39,7 +39,7 @@ const MyProfile = () => {
 
   return (
     <UserContainer>
-      <Container maxWidth="md">
+      <Container>
         <Paper>
           <Tabs
             value={value}
