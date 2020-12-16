@@ -25,6 +25,7 @@ export const ContainerStyled = styled(Container)`
     display: flex;
     flex-direction: row;
   }
+
   @media (min-width: 768px) and (max-width: 979px) {
     margin-top: 110px;
     height: auto;

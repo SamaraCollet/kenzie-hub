@@ -1,14 +1,14 @@
+import { UserContainer, ContainerBio } from "./style";
 import {Avatar, ListItemAvatar, ListItemText, ListItem, List, Tab, Tabs,Paper, Container} from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
-
 import SwipeableViews from "react-swipeable-views";
-import TabContent from "./tab-content";
 import WorkOutline from "@material-ui/icons/WorkOutline";
 import CodeIcon from "@material-ui/icons/Code";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { UserContainer, ContainerBio } from "./style";
 import axios from "axios";
+
+import TabContent from "./tab-content";
 
 const MyProfile = () => {
   const [currentUser, setUser] = useState({});
@@ -26,7 +26,7 @@ const MyProfile = () => {
 
   useEffect(() => {
     profileRequest(id);
-  }, []);
+  }, []); // eslint-disable-line
 
   const profileRequest = (userId) => {
     axios
@@ -39,7 +39,7 @@ const MyProfile = () => {
 
   return (
     <UserContainer>
-      <Container maxWidth="md">
+      <Container>
         <Paper>
           <Tabs
             value={value}
