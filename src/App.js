@@ -18,7 +18,7 @@ function App() {
   const dispatch = useDispatch();
   localStorage.hasOwnProperty("userInfos")
     ? dispatch(addUserToken(JSON.parse(localStorage.getItem("userInfos"))))
-    : dispatch(addUserToken(""));
+    : dispatch(addUserToken(''));
   return (
     <>
       <GlobalStyle></GlobalStyle>

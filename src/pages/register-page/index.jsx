@@ -63,7 +63,7 @@ const RegisterPage = () => {
       .oneOf([yup.ref("password")], "Senhas diferentes"),
   });
 
-  const { register, handleSubmit, errors, control } = useForm({
+  const { register, handleSubmit, errors, control, setError } = useForm({
     resolver: yupResolver(schema),
   });
 
@@ -74,7 +74,9 @@ const RegisterPage = () => {
     axios
       .post(`https://kenziehub.me/users`, { ...value })
       .then((res) => history.push("/login"))
-      .catch((err) => console.log(err));
+      .catch(() => {
+        setError("email", { message: "Este email já está sendo utilizado" });
+      })
   };
 
   return (

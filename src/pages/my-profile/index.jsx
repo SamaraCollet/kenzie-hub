@@ -5,16 +5,24 @@ import TabContent from "./tab-content";
 import WorkIcon from "@material-ui/icons/Work";
 import { useParams } from "react-router-dom";
 import BioConfig from "../../components/profile-configs/bio-config";
+import { useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
+import NotAuthorized from '../../pages/not-authorized'
 
 import { useState, useEffect } from "react";
 import { UserContainer, ContainerBio } from "./style";
 import axios from "axios";
 
 const MyProfile = () => {
+  const userInfos = useSelector(state => state.currentUserToken);
   const [currentUser, setUser] = useState({});
   const theme = useTheme();
   const [value, setValue] = useState(0);
-  const userID = window.localStorage.getItem("userID");
+  const history = useHistory()
+
+
+  const userID = userInfos.user?.id
+  
 
   const handleChange = (evt, newValue) => {
     setValue(newValue);
@@ -25,10 +33,13 @@ const MyProfile = () => {
   };
 
   useEffect(() => {
-    profileRequest(userID);
+    if(userID){
+      profileRequest(userID)
+    }
+    return;
   }, []);
 
-  const profileRequest = (id) => {
+  const profileRequest = id => {
     axios
       .get(`https://kenziehub.me/users/${id}`)
       .then((res) => {
@@ -39,6 +50,7 @@ const MyProfile = () => {
 
   return (
     <UserContainer>
+    {userID ? (
       <Container maxWidth="md">
         <Paper>
           <Tabs
@@ -107,7 +119,9 @@ const MyProfile = () => {
           </SwipeableViews>
         </Paper>
       </Container>
+    ) : (<NotAuthorized/>)}
     </UserContainer>
+    
   );
 };
 

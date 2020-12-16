@@ -8,13 +8,13 @@ const NotAuthorized = () => {
   return (
     <Container>
         {userToken ? (
-            history.push('/pagenotfound')
+          history.push('/pagenotfound')
         ) : (
-            <Div>
-                <h1>Você precisa estar logado pra ter acesso a essa página</h1>
-                <div>Já é membro do Kenzie Hub ? <Link>logar-se</Link></div>
-                <div>Mas se ainda não for membro, você pode se <Link>cadastrar</Link></div>
-            </Div>
+          <Div>
+            <h1>Você precisa estar logado pra ter acesso a essa página</h1>
+            <div>Já é membro do Kenzie Hub ? <Link>logar-se</Link></div>
+            <div>Mas se ainda não for membro, você pode se <Link>cadastrar</Link></div>
+          </Div>
         )}
 
     </Container>
