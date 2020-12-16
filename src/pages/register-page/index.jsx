@@ -39,8 +39,6 @@ const RegisterPage = () => {
 
     bio: yup.string().required("Campo obrigatório"),
 
-    // course_module: yup.string().required("Campo obrigatório"),
-
     contact: yup.string().required("Campo obrigatório"),
 
     password: yup
