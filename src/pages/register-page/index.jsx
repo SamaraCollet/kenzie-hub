@@ -16,6 +16,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { Controller } from "react-hook-form";
+import Alert from "@material-ui/lab/Alert";
+import Snackbar from "@material-ui/core/Snackbar";
 
 const RegisterPage = () => {
   const [values, setValues] = useState({
@@ -23,6 +25,7 @@ const RegisterPage = () => {
     showPassword: false,
     module: "Primeiro módulo (Introdução ao Frontend)",
   });
+  const [snackBar, setSnackBar] = useState(false);
 
   const handleChange = (prop) => (evt) => {
     setValues({ ...values, [prop]: evt.target.value });
@@ -73,14 +76,26 @@ const RegisterPage = () => {
     console.log(value);
     axios
       .post(`https://kenziehub.me/users`, { ...value })
-      .then((res) => history.push("/login"))
+      .then((res) => {
+        history.push("/login");
+        setSnackBar(true);
+      })
       .catch(() => {
         setError("email", { message: "Este email já está sendo utilizado" });
-      })
+      });
   };
 
   return (
     <Main>
+      <Snackbar
+        open={snackBar}
+        autoHideDuration={6000}
+        onClose={() => setSnackBar(false)}
+      >
+        <Alert severity="success">
+          Seus dados foram atualizados com sucesso!
+        </Alert>
+      </Snackbar>
       <ContainerStyled>
         <h1>Cadastro</h1>
         <form onSubmit={handleSubmit(handleForm)}>

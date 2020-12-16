@@ -7,28 +7,25 @@ import { TextField, Button, Snackbar } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import Alert from "@material-ui/lab/Alert";
-import { useHistory } from 'react-router-dom'
-
+import { useHistory } from "react-router-dom";
+import BioAvatar from "./BioAvatar";
+import ChangePassword from "./ChangePassword";
 const BioConfig = () => {
-  const history = useHistory()
+  const history = useHistory();
 
-  const user = useSelector(state => state.currentUserToken)
-  
+  const user = useSelector((state) => state.currentUserToken);
+
   const userInfo = user.user;
 
   const [snackBar, setSnackBar] = useState(false);
   const [txtName, setTxtName] = useState(userInfo.name);
   const [txtContact, setTxtContact] = useState(userInfo.contact);
   const [txtBio, setTxtBio] = useState(userInfo.bio);
-  // const [txtOldPassword, setTxtOldPassword] = useState("");
-  // const [txtPassword, setTxtPassword] = useState("");
 
   const schema = yup.object().shape({
     name: yup.string().required("Campo obrigatório"),
     contact: yup.string().required("Campo obrigatório"),
     bio: yup.string().required("Campo obrigatório"),
-    // old_password: yup.string().required("Campo obrigatório"),
-    // password: yup.string().required("Campo obrigatório"),
   });
 
   const { register, handleSubmit, errors, setError } = useForm({
@@ -48,8 +45,7 @@ const BioConfig = () => {
     }).then((response) => setSnackBar(true));
   };
 
-  const userToken = useSelector((state) => state.currentUserToken);
-  // console.log(userToken);
+  console.log(user);
   return (
     <>
       <Snackbar
@@ -61,6 +57,7 @@ const BioConfig = () => {
           Seus dados foram atualizados com sucesso!
         </Alert>
       </Snackbar>
+      <BioAvatar token={user.token} actualImg={userInfo.avatar_url} />
       <form onSubmit={handleSubmit(handleForm)}>
         <div>
           <TextField
@@ -96,34 +93,11 @@ const BioConfig = () => {
             multiline
           />
         </div>
-        {/* <div>
-        <TextField
-          name="old_password"
-          label="Old Password:"
-          inputRef={register}
-          type="password"
-          error={!!errors.old_password}
-          helperText={errors.old_password?.message}
-          value={txtOldPassword}
-          onChange={(e) => setTxtOldPassword(e.target.value)}
-        />
-      </div>
-      <div>
-        <TextField
-          name="password"
-          label="Password:"
-          inputRef={register}
-          type="password"
-          error={!!errors.password}
-          helperText={errors.password?.message}
-          value={txtPassword}
-          onChange={(e) => setTxtPassword(e.target.value)}
-        />
-      </div> */}
         <div>
           <Button type="submit">Salvar</Button>
         </div>
       </form>
+      <ChangePassword token={user.token} />
     </>
   );
 };
