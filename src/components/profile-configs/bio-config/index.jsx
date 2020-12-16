@@ -1,145 +1,127 @@
-import Container from "@material-ui/core/Container";
-import Paper from "@material-ui/core/Paper";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import { useTheme } from "@material-ui/core/styles";
-import SwipeableViews from "react-swipeable-views";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import ListItemText from "@material-ui/core/ListItemText";
-import TabContent from "./tab-content";
-import IconButton from "@material-ui/core/IconButton";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Avatar from "@material-ui/core/Avatar";
-import WorkIcon from "@material-ui/icons/Work";
-import DeleteIcon from "@material-ui/icons/Delete";
-import { useParams } from 'react-router-dom'
-import CreateIcon from '@material-ui/icons/Create';
-import { useState, useEffect } from "react";
-import { UserContainer, ContainerBio } from "./style";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import { TextField, Button, Snackbar } from "@material-ui/core";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
+import Alert from "@material-ui/lab/Alert";
 
-const MyProfile = () => {
-  const [isEditable, setEditable] = useState(false)
-  const [currentUser, setUser] = useState({});
-  const theme = useTheme();
-  const [value, setValue] = useState(0);
-  const { id } = useParams()
-  const userID = window.localStorage.getItem('userID')
+const BioConfig = () => {
+  const user = useSelector((state) => state.currentUserToken);
+  const userInfo = user.user;
 
-  const handleChange = (evt, newValue) => {
-    setValue(newValue);
+  const [snackBar, setSnackBar] = useState(false);
+  const [txtName, setTxtName] = useState(userInfo.name);
+  const [txtContact, setTxtContact] = useState(userInfo.contact);
+  const [txtBio, setTxtBio] = useState(userInfo.bio);
+  // const [txtOldPassword, setTxtOldPassword] = useState("");
+  // const [txtPassword, setTxtPassword] = useState("");
+
+  const schema = yup.object().shape({
+    name: yup.string().required("Campo obrigatório"),
+    contact: yup.string().required("Campo obrigatório"),
+    bio: yup.string().required("Campo obrigatório"),
+    // old_password: yup.string().required("Campo obrigatório"),
+    // password: yup.string().required("Campo obrigatório"),
+  });
+
+  const { register, handleSubmit, errors, setError } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const dispatch = useDispatch();
+
+  const handleForm = (value) => {
+    axios({
+      method: "put",
+      url: `https://kenziehub.me/profile`,
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+      data: value,
+    }).then((response) => setSnackBar(true));
   };
 
-  const handleChangeIndex = (index) => {
-    setValue(index);
-  };
-
-  useEffect(() => {
-    profileRequest(id);
-  }, []);
-
-  const profileRequest = () => {
-    axios
-      .get(`https://kenziehub.me/users/${userID}`)
-      .then((res) => {
-        setUser(res.data);
-      })
-      .catch((err) => console.log(err));
-  };
-
-
+  const userToken = useSelector((state) => state.currentUserToken);
+  // console.log(userToken);
   return (
-    <UserContainer>
-      <Container maxWidth="md">
-        <Paper>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            indicatorColor="primary"
-            textColor="primary"
-            scrollButtons="auto"
-          >
-            <Tab label="Bio" />
-            <Tab label="Tecnologias" />
-            <Tab label="Trabalhos" />
-            <Tab label="Curso" />
-          </Tabs>
-          <SwipeableViews
-            axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-            index={value}
-            onChangeIndex={handleChangeIndex}
-          >
-
-            {/* Tab bio  */}
-            <TabContent value={value} index={0}>
-                {!currentUser.avatar_url ? (
-                  <CircularProgress />
-                ) : (
-                  <img src={currentUser.avatar_url} alt="img profile" />
-                )}
-                <form>
-                  <div>Nome: </div>
-                  <TextField
-                    value={currentUser.name}
-                    variant="outlined"
-                  ></TextField>
-                  <div>Bio: </div>
-                  <TextField
-                    value={currentUser.bio}
-                    multiline
-                    rows={4}
-                    variant="outlined"
-                  ></TextField>
-                  <div className="btn">
-                    <Button
-                      type="submit"
-                      variant="contained"
-                      color="primary"
-                      className="btnSalvar"
-                    >
-                      Salvar
-                    </Button>
-                  </div>
-                </form>
-                <IconButton onClick={() => setEditable(true)}><CreateIcon/></IconButton>
-            </TabContent>
-
-            <TabContent value={value} index={2} dir={theme.direction}>
-              <List>
-                {currentUser.works ? (
-                  currentUser.works.map((work, index) => (
-                    <ListItem key={index}>
-                      <ListItemAvatar>
-                        <Avatar>
-                          <WorkIcon />
-                        </Avatar>
-                      </ListItemAvatar>
-                      <ListItemText
-                        primary={work.title}
-                        secondary={work.description}
-                      />
-                    </ListItem>
-                  ))
-                ) : (
-                  <div>Carregando...</div>
-                )}
-                <IconButton onClick={() => setEditable(true)}><CreateIcon/></IconButton>
-              </List>
-            </TabContent>
-            <TabContent value={value} index={3} dir={theme.direction}>
-              {currentUser.course_module}
-              <IconButton onClick={() => setEditable(true)}><CreateIcon/></IconButton>
-            </TabContent>
-          </SwipeableViews>
-        </Paper>
-      </Container>
-    </UserContainer>
+    <>
+      <Snackbar
+        open={snackBar}
+        autoHideDuration={6000}
+        onClose={() => setSnackBar(false)}
+      >
+        <Alert severity="success">
+          Seus dados foram atualizados com sucesso!
+        </Alert>
+      </Snackbar>
+      <form onSubmit={handleSubmit(handleForm)}>
+        <div>
+          <TextField
+            name="name"
+            label="Nome:"
+            inputRef={register}
+            error={!!errors.name}
+            helperText={errors.name?.message}
+            value={txtName}
+            onChange={(e) => setTxtName(e.target.value)}
+          />
+        </div>
+        <div>
+          <TextField
+            name="contact"
+            label="Contato:"
+            inputRef={register}
+            error={!!errors.contact}
+            helperText={errors.contact?.message}
+            value={txtContact}
+            onChange={(e) => setTxtContact(e.target.value)}
+          />
+        </div>
+        <div>
+          <TextField
+            name="bio"
+            label="Bio:"
+            inputRef={register}
+            error={!!errors.bio}
+            helperText={errors.bio?.message}
+            value={txtBio}
+            onChange={(e) => setTxtBio(e.target.value)}
+            multiline
+          />
+        </div>
+        {/* <div>
+        <TextField
+          name="old_password"
+          label="Old Password:"
+          inputRef={register}
+          type="password"
+          error={!!errors.old_password}
+          helperText={errors.old_password?.message}
+          value={txtOldPassword}
+          onChange={(e) => setTxtOldPassword(e.target.value)}
+        />
+      </div>
+      <div>
+        <TextField
+          name="password"
+          label="Password:"
+          inputRef={register}
+          type="password"
+          error={!!errors.password}
+          helperText={errors.password?.message}
+          value={txtPassword}
+          onChange={(e) => setTxtPassword(e.target.value)}
+        />
+      </div> */}
+        <div>
+          <Button type="submit">Salvar</Button>
+        </div>
+      </form>
+    </>
   );
 };
 
-export default MyProfile;
+export default BioConfig;
