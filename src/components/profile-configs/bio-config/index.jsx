@@ -4,14 +4,13 @@ import * as yup from "yup";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { TextField, Button, Snackbar } from "@material-ui/core";
-import { useDispatch } from "react-redux";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Alert from "@material-ui/lab/Alert";
-import { useHistory } from "react-router-dom";
-import BioAvatar from "./BioAvatar";
+
 import ChangePassword from "./ChangePassword";
+import BioAvatar from "./BioAvatar";
+
 const BioConfig = () => {
-  const history = useHistory();
 
   const user = useSelector((state) => state.currentUserToken);
 
@@ -28,11 +27,10 @@ const BioConfig = () => {
     bio: yup.string().required("Campo obrigatório"),
   });
 
-  const { register, handleSubmit, errors, setError } = useForm({
+  const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
   });
 
-  const dispatch = useDispatch();
 
   const handleForm = (value) => {
     axios({
@@ -45,7 +43,6 @@ const BioConfig = () => {
     }).then((response) => setSnackBar(true));
   };
 
-  console.log(user);
   return (
     <>
       <Snackbar

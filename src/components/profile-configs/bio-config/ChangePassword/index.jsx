@@ -3,16 +3,15 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { TextField, Button, Snackbar } from "@material-ui/core";
+import { TextField, Button, Snackbar, IconButton } from "@material-ui/core";
 import { useDispatch } from "react-redux";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Alert from "@material-ui/lab/Alert";
 import { useHistory } from "react-router-dom";
-import { addUserToken } from "../../../../store/modules/current-user/action";
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import { Visibility, VisibilityOff } from "@material-ui/icons";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import IconButton from "@material-ui/core/IconButton";
+
+import { addUserToken } from "../../../../store/modules/current-user/action";
 
 const BioConfig = () => {
   const user = useSelector((state) => state.currentUserToken);
@@ -42,7 +41,7 @@ const BioConfig = () => {
       ),
   });
 
-  const { register, handleSubmit, errors, setError } = useForm({
+  const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
   });
 
