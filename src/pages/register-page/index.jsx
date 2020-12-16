@@ -1,4 +1,14 @@
-import { useForm } from "react-hook-form";
+import {
+  MenuItem,
+  IconButton,
+  Select,
+  InputLabel,
+  FormControl,
+  TextField,
+  InputAdornment,
+} from "@material-ui/core";
+import {Visibility, VisibilityOff} from "@material-ui/icons";
+
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { ContainerStyled, RadioStyling } from "./styles";
@@ -6,6 +16,7 @@ import { Main, ButtonStyled } from "../../styles/styles_login_register";
 import axios from "axios";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+<<<<<<< HEAD
 import InputAdornment from "@material-ui/core/InputAdornment";
 import TextField from "@material-ui/core/TextField";
 import FormControl from "@material-ui/core/FormControl";
@@ -18,6 +29,9 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { Controller } from "react-hook-form";
 import Alert from "@material-ui/lab/Alert";
 import Snackbar from "@material-ui/core/Snackbar";
+=======
+import { Controller, useForm } from "react-hook-form";
+>>>>>>> 7138cbe8e105bc79ba4747d0e56a7457e6ff689c
 
 const RegisterPage = () => {
   const [values, setValues] = useState({
