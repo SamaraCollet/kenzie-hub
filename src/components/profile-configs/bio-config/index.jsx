@@ -5,11 +5,15 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { TextField, Button, Snackbar } from "@material-ui/core";
 import { useDispatch } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Alert from "@material-ui/lab/Alert";
+import { useHistory } from 'react-router-dom'
 
 const BioConfig = () => {
-  const user = useSelector((state) => state.currentUserToken);
+  const history = useHistory()
+
+  const user = useSelector(state => state.currentUserToken)
+  
   const userInfo = user.user;
 
   const [snackBar, setSnackBar] = useState(false);
