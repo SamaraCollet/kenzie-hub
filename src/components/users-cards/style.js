@@ -78,14 +78,4 @@ export const CardStyled = styled(Card)`
     border: 2px solid #013b84;
     color: #fff;
   }
-
-  @media (max-width: 480px) {
-    width: 250px !important;
-    height: 180px !important;
-  }
 `;
-
-// @media (max-width: 1200px) {}
-// @media (min-width:768px) and (max-width:979px) {}
-// @media only screen and (max-width: 767px) {}
-// @media (max-width: 480px) {}
