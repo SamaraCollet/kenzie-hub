@@ -16,9 +16,11 @@ import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { UserContainer, ContainerBio } from "./style";
 import axios from "axios";
-
+import CourseConfig from "../../components/profile-configs/course-config";
 import TabContent from "./tab-content";
 import BioConfig from "../../components/profile-configs/bio-config";
+import WorksConfig from "../../components/profile-configs/works-config";
+import TechConfig from "../../components/profile-configs/techs-config";
 import NotAuthorized from "../../pages/not-authorized";
 
 const MyProfile = () => {
@@ -82,44 +84,17 @@ const MyProfile = () => {
               </TabContent>
 
               <TabContent value={value} index={1} dir={theme.direction}>
-                <List>
-                  {currentUser.techs ? (
-                    currentUser.techs.map((tech, index) => (
-                      <ListItem key={index}>
-                        <ListItemText
-                          primary={tech.title}
-                          secondary={tech.status}
-                        />
-                      </ListItem>
-                    ))
-                  ) : (
-                    <div>Carregando...</div>
-                  )}
-                </List>
+                <TechConfig />
               </TabContent>
               <TabContent value={value} index={2} dir={theme.direction}>
-                <List>
-                  {currentUser.works ? (
-                    currentUser.works.map((work, index) => (
-                      <ListItem key={index}>
-                        <ListItemAvatar>
-                          <Avatar>
-                            <WorkIcon />
-                          </Avatar>
-                        </ListItemAvatar>
-                        <ListItemText
-                          primary={work.title}
-                          secondary={work.description}
-                        />
-                      </ListItem>
-                    ))
-                  ) : (
-                    <div>Carregando...</div>
-                  )}
-                </List>
+                <ContainerBio>
+                  <WorksConfig />
+                </ContainerBio>
               </TabContent>
               <TabContent value={value} index={3} dir={theme.direction}>
-                {currentUser.course_module}
+                <ContainerBio>
+                  <CourseConfig />
+                </ContainerBio>
               </TabContent>
             </SwipeableViews>
           </Paper>

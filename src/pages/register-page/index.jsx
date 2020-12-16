@@ -16,7 +16,6 @@ const RegisterPage = () => {
     showPassword: false,
     module: "Primeiro módulo (Introdução ao Frontend)",
   });
-  const [snackBar, setSnackBar] = useState(false);
 
   const handleChange = (prop) => (evt) => {
     setValues({ ...values, [prop]: evt.target.value });
@@ -65,10 +64,7 @@ const RegisterPage = () => {
     console.log(value);
     axios
       .post(`https://kenziehub.me/users`, { ...value })
-      .then((res) => {
-        history.push("/login");
-        setSnackBar(true);
-      })
+      .then((res) => history.push("/login"))
       .catch(() => {
         setError("email", { message: "Este email já está sendo utilizado" });
       });
