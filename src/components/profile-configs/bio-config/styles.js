@@ -13,6 +13,7 @@ export const Container = styled.div `
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 30px;
   }
   .buttonStyled button {
     margin-top: 30px;

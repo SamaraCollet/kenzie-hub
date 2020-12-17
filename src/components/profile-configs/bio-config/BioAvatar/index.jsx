@@ -30,7 +30,6 @@ const BioAvatar = ({ token, actualImg }) => {
         },
       })
       .then((response) => {
-        window.localStorage.setItem("userInfos", JSON.stringify(response.data))
         console.log(response.data);
         setAvatar(response.data.avatar_url)
       })

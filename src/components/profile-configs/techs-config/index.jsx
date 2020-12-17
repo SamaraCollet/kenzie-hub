@@ -9,8 +9,12 @@ import {
   FormControl,
   Button,
   IconButton,
+  Avatar,
+  ListItemAvatar,
+  Popover,
 } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
+import CodeIcon from "@material-ui/icons/Code";
 import CreateIcon from "@material-ui/icons/Create";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { useSelector } from "react-redux";
@@ -24,19 +28,22 @@ const TechConfig = () => {
   const [isEditable, setIsEditable] = useState(false);
   const [techID, setTechID] = useState("");
   const [updatableTechs, setTechs] = useState({})
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const userInfos = useSelector((state) => state.currentUserToken);
+  const open = Boolean(anchorEl);
+  const id = open ? "popover" : undefined;
 
-  const handleLevel = (evt) => {
-    setLevel(evt.target.value);
+  const handleClick = (evt, setState) => {
+    setState(evt.currentTarget);
   };
 
-  const handleNewLevel = (evt) => {
-    setNewLevel(evt.target.value);
+  const handleClose = () => {
+    setAnchorEl(null);
   };
 
-  const handleInput = (evt) => {
-    setInput(evt.target.value);
+  const handleTargetValue = (evt, setState) => {
+    setState(evt.target.value);
   };
 
   const handleEditable = () => {
@@ -69,7 +76,6 @@ const TechConfig = () => {
   };
 
   const deleteTech = (evt) => {
-    evt.preventDefault();
     axios({
       method: "delete",
       url: `https://kenziehub.me/users/techs/${techID}`,
@@ -84,14 +90,23 @@ const TechConfig = () => {
       <form onSubmit={createTech}>
         <Content>
           <FormControl>
-            <TextField name="title" value={techInput} onChange={handleInput} />
+            <TextField
+              label="Tecnologia"
+              name="title"
+              value={techInput}
+              onChange={(evt) => {
+                handleTargetValue(evt, setInput);
+              }}
+            />
           </FormControl>
           <FormControl>
             <Select
               label="Nível"
               name="status"
               value={level}
-              onChange={handleLevel}
+              onChange={(evt) => {
+                handleTargetValue(evt, setLevel);
+              }}
             >
               <MenuItem value="Iniciante">Básico</MenuItem>
               <MenuItem value="Intermediário">Intermediário</MenuItem>
@@ -114,7 +129,9 @@ const TechConfig = () => {
                   label="Nível"
                   name="status"
                   value={newLevel}
-                  onChange={handleNewLevel}
+                  onChange={(evt) => {
+                    handleTargetValue(evt, setNewLevel);
+                  }}
                 >
                   <MenuItem value="Iniciante">Básico</MenuItem>
                   <MenuItem value="Intermediário">Intermediário</MenuItem>
@@ -131,6 +148,11 @@ const TechConfig = () => {
           userInfos.user.techs.map((tech, index) => (
             <>
               <ListItem key={index}>
+                <ListItemAvatar>
+                  <Avatar>
+                    <CodeIcon />
+                  </Avatar>
+                </ListItemAvatar>
                 <ListItemText primary={tech.title} secondary={tech.status} />
                 <IconButton>
                   <CreateIcon
@@ -141,7 +163,31 @@ const TechConfig = () => {
                   />
                 </IconButton>
                 <IconButton>
-                  <DeleteIcon onClick={deleteTech} />
+                  <DeleteIcon
+                    onClick={(evt) => {
+                      setTechID(tech.id);
+                      handleClick(evt, setAnchorEl);
+                    }}
+                  />
+                  <Popover
+                    id={id}
+                    open={open}
+                    anchorEl={anchorEl}
+                    onClose={handleClose}
+                    anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+                    transformOrigin={{ vertical: "top", horizontal: "center" }}
+                  >
+                    <h2>Tem certeza?</h2>
+                    <Button
+                      onClick={() => {
+                        deleteTech();
+                        handleClose();
+                      }}
+                    >
+                      Sim
+                    </Button>
+                    <Button onClick={handleClose}>Não</Button>
+                  </Popover>
                 </IconButton>
               </ListItem>
             </>
