@@ -21,8 +21,8 @@ function App() {
     ? dispatch(addUserToken(JSON.parse(localStorage.getItem("userInfos"))))
     : dispatch(addUserToken(""));
 
-  localStorage.hasOwnProperty("userInfos")
-    ? dispatch(userEdit(JSON.parse(localStorage.getItem("userInfos"))))
+    localStorage.hasOwnProperty("updatable")
+    ? dispatch(userEdit(JSON.parse(localStorage.getItem("updatable"))))
     : dispatch(userEdit(""));
 
   return (

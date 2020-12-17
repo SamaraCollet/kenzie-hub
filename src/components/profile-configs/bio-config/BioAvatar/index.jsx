@@ -1,6 +1,23 @@
 import axios from "axios";
+import { Container } from "./styles";
+import { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 
 const BioAvatar = ({ token, actualImg }) => {
+  const users = useSelector((state) => state.currentUserToken);
+  const userID = users.user.id
+  const [avatar, setAvatar] = useState('')
+
+  useEffect(() => {
+    axios
+    .get(`https://kenziehub.me/users/${userID}`)
+    .then((response) => {
+      console.log(response)
+      setAvatar(response.data.avatar_url)
+    })
+    .catch((e) => console.error(e));
+  }, [] )
+
   const handleAvatarChange = (e) => {
     const data = new FormData();
 
@@ -13,23 +30,27 @@ const BioAvatar = ({ token, actualImg }) => {
         },
       })
       .then((response) => {
+        window.localStorage.setItem("userInfos", JSON.stringify(response.data))
         console.log(response.data);
+        setAvatar(response.data.avatar_url)
       })
       .catch((e) => console.error(e));
   };
 
+  
+
   return (
-    <div>
-      <img
-        alt="Profile_img"
-        src={actualImg ? actualImg : "/assets/user.png"}
-        width="100"
-        height="100"
-      ></img>
+    <Container>
+      <div className="imageCard">
+        <img
+          alt="Profile_img"
+          src={avatar ? avatar : "/assets/user.png"}
+        ></img>
+      </div>
       <form>
         <input type="file" id="avatar" onChange={handleAvatarChange} />
       </form>
-    </div>
+    </Container>
   );
 };
 

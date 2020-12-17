@@ -46,7 +46,8 @@ const Login = () => {
       .then((res) => {
         dispatch(userEdit(res.data.user));
         dispatch(addUserToken(res.data));
-        window.localStorage.setItem("userInfos", JSON.stringify(res.data));
+        window.localStorage.setItem("userInfos", JSON.stringify(res.data))
+        window.localStorage.setItem("updatable", JSON.stringify(res.data.user))
         window.localStorage.setItem("authToken", res.data.token);
         history.push("/feed");
       })

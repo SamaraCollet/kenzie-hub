@@ -7,6 +7,7 @@ import { TextField, Button, Snackbar } from "@material-ui/core";
 import { useState } from "react";
 import Alert from "@material-ui/lab/Alert";
 import { userEdit } from "../../../store/modules/user-edit/action";
+import { Container } from "./styles";
 
 import ChangePassword from "./ChangePassword";
 import BioAvatar from "./BioAvatar";
@@ -14,6 +15,7 @@ import BioAvatar from "./BioAvatar";
 const BioConfig = () => {
   const updatableData = useSelector((state) => state.newEdit);
   const dispatch = useDispatch();
+  console.log(updatableData)
 
   const user = useSelector((state) => state.currentUserToken);
 
@@ -32,7 +34,7 @@ const BioConfig = () => {
     resolver: yupResolver(schema),
   });
 
-  console.log(updatableData);
+  console.log(updatableData)
 
   const handleForm = (value) => {
     dispatch(userEdit(value));
@@ -44,12 +46,13 @@ const BioConfig = () => {
       },
       data: value,
     }).then((response) => {
+      window.localStorage.setItem("updatable", JSON.stringify(value))
       setSnackBar(true);
     });
   };
 
   return (
-    <>
+    <Container>
       <Snackbar
         open={snackBar}
         autoHideDuration={6000}
@@ -59,7 +62,7 @@ const BioConfig = () => {
           Seus dados foram atualizados com sucesso!
         </Alert>
       </Snackbar>
-      <BioAvatar token={user.token} actualImg={updatableData.avatar_url} />
+      <BioAvatar token={user.token} actualImg={user.user.avatar_url} />
       <form onSubmit={handleSubmit(handleForm)}>
         <div>
           <TextField
@@ -95,12 +98,12 @@ const BioConfig = () => {
             multiline
           />
         </div>
-        <div>
+        <div className="buttonStyled">
           <Button type="submit">Salvar</Button>
         </div>
       </form>
       <ChangePassword token={user.token} />
-    </>
+    </Container>
   );
 };
 
