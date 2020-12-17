@@ -1,21 +1,13 @@
-import {
-  Container,
-  Paper,
-  Tabs,
-  Tab,
-  Avatar,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-} from "@material-ui/core";
+import {Container, Paper, Tabs, Tab, Avatar, List, ListItem, ListItemAvatar, ListItemText} from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
 import SwipeableViews from "react-swipeable-views";
-import { useSelector } from "react-redux";
+import WorkIcon from "@material-ui/icons/Work";
+import { useSelector } from 'react-redux'
 import { useState, useEffect } from "react";
 import { UserContainer, ContainerBio } from "./style";
 import axios from "axios";
-import CourseConfig from "../../components/profile-configs/course-config";
+
+import CourseConfig from '../../components/profile-configs/course-config'
 import TabContent from "./tab-content";
 import BioConfig from "../../components/profile-configs/bio-config";
 import WorksConfig from "../../components/profile-configs/works-config";
@@ -23,12 +15,16 @@ import TechConfig from "../../components/profile-configs/techs-config";
 import NotAuthorized from "../../pages/not-authorized";
 
 const MyProfile = () => {
-  const userInfos = useSelector((state) => state.currentUserToken);
+  const userInfos = useSelector(state => state.currentUserToken);
   const [currentUser, setUser] = useState({});
   const theme = useTheme();
   const [value, setValue] = useState(0);
 
-  const userID = userInfos.user?.id;
+
+
+
+  const userID = userInfos.user?.id
+  
 
   const handleChange = (evt, newValue) => {
     setValue(newValue);
@@ -39,13 +35,13 @@ const MyProfile = () => {
   };
 
   useEffect(() => {
-    if (userID) {
-      profileRequest(userID);
+    if(userID){
+      profileRequest(userID)
     }
     return;
   }, []);
 
-  const profileRequest = (id) => {
+  const profileRequest = id => {
     axios
       .get(`https://kenziehub.me/users/${id}`)
       .then((res) => {
@@ -56,32 +52,31 @@ const MyProfile = () => {
 
   return (
     <UserContainer>
-      {userID ? (
-        <Container>
-          <Paper>
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              indicatorColor="primary"
-              textColor="primary"
-              scrollButtons="auto"
-            >
-              <Tab label="Bio" />
-              <Tab label="Tecnologias" />
-              <Tab label="Trabalhos" />
-              <Tab label="Curso" />
-            </Tabs>
-            <SwipeableViews
-              axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-              index={value}
-              onChangeIndex={handleChangeIndex}
-            >
-              <TabContent value={value} index={0}>
-                <ContainerBio>
-                  <BioConfig />
-                </ContainerBio>
-              </TabContent>
-
+    {userID ? (
+      <Container maxWidth="md">
+        <Paper>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            indicatorColor="primary"
+            textColor="primary"
+            scrollButtons="auto"
+          >
+            <Tab label="Bio" />
+            <Tab label="Tecnologias" />
+            <Tab label="Trabalhos" />
+            <Tab label="Curso" />
+          </Tabs>
+          <SwipeableViews
+            axis={theme.direction === "rtl" ? "x-reverse" : "x"}
+            index={value}
+            onChangeIndex={handleChangeIndex}
+          >
+            <TabContent value={value} index={0}>
+              <ContainerBio>
+                <BioConfig />
+              </ContainerBio>
+            </TabContent>
               <TabContent value={value} index={1} dir={theme.direction}>
                 <TechConfig />
               </TabContent>
@@ -102,6 +97,7 @@ const MyProfile = () => {
         <NotAuthorized />
       )}
     </UserContainer>
+    
   );
 };
 

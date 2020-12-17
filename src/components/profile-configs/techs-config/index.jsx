@@ -27,6 +27,7 @@ const TechConfig = () => {
   const [newLevel, setNewLevel] = useState("Básico");
   const [isEditable, setIsEditable] = useState(false);
   const [techID, setTechID] = useState("");
+  const [updatableTechs, setTechs] = useState({})
   const [anchorEl, setAnchorEl] = useState(null);
 
   const userInfos = useSelector((state) => state.currentUserToken);

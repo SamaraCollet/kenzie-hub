@@ -11,6 +11,7 @@ import { Link, useHistory } from "react-router-dom";
 
 import { Main, ButtonStyled } from "../../styles/styles_login_register";
 import { addUserToken } from "../../store/modules/current-user/action";
+import {userEdit} from "../../store/modules/user-edit/action"
 
 const Login = () => {
   const [values, setValues] = useState({
@@ -43,8 +44,10 @@ const Login = () => {
     axios
       .post("https://kenziehub.me/sessions", { ...value })
       .then((res) => {
+        dispatch(userEdit(res.data.user));
         dispatch(addUserToken(res.data));
-        window.localStorage.setItem("userInfos", JSON.stringify(res.data));
+        window.localStorage.setItem("userInfos", JSON.stringify(res.data))
+        window.localStorage.setItem("updatable", JSON.stringify(res.data.user))
         window.localStorage.setItem("authToken", res.data.token);
         history.push("/feed");
       })

@@ -73,7 +73,6 @@ const BioConfig = () => {
     });
   };
 
-  console.log(user);
   return (
     <Container>
       <Snackbar
