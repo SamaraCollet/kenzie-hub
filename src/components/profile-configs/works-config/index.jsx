@@ -22,7 +22,7 @@ import WorkIcon from "@material-ui/icons/Work";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 import axios from "axios";
-import { Content } from "./style";
+import { Content, ContentList } from "./style";
 
 const WorksConfig = () => {
   const [workTitleInput, setWorkTitleInput] = useState("");
@@ -64,38 +64,40 @@ const WorksConfig = () => {
 
   return (
     <>
-      <form onSubmit={createWork}>
-        <TextField
-          placeholder="Título"
-          value={workTitleInput}
-          onChange={(e) => setWorkTitleInput(e.target.value)}
-        />
-        <TextField
-          placeholder="Descrição"
-          value={workDescriptionInput}
-          onChange={(e) => setWorkDescriptionInput(e.target.value)}
-          multiline
-        />
-        <TextField
-          placeholder="Url de Deploy"
-          value={workUrlInput}
-          onChange={(e) => setWorkUrlInput(e.target.value)}
-        />
+      <Content>
+        <form onSubmit={createWork}>
+          <TextField
+            placeholder="Título"
+            value={workTitleInput}
+            onChange={(e) => setWorkTitleInput(e.target.value)}
+          />
+          <TextField
+            placeholder="Descrição"
+            value={workDescriptionInput}
+            onChange={(e) => setWorkDescriptionInput(e.target.value)}
+            multiline
+          />
+          <TextField
+            placeholder="Url de Deploy"
+            value={workUrlInput}
+            onChange={(e) => setWorkUrlInput(e.target.value)}
+          />
 
-        <Button type="submit">
-          <AddIcon />
-        </Button>
-      </form>
-      <List>
-        {works.map((work, index) => (
-          <ListItem key={index}>
-            <ListItemAvatar>
-              <Avatar>
-                <WorkIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary={work.title} secondary={work.description} />
-            <ListItemSecondaryAction>
+          <Button type="submit">
+            <AddIcon />
+          </Button>
+        </form>
+      </Content>
+      <ContentList>
+        <List>
+          {works.map((work, index) => (
+            <ListItem key={index}>
+              <ListItemAvatar>
+                <Avatar>
+                  <WorkIcon />
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText primary={work.title} secondary={work.description} />
               <IconButton onClick={() => handleDeleteWork(work.id)}>
                 <DeleteIcon />
               </IconButton>
@@ -104,10 +106,10 @@ const WorksConfig = () => {
                   <ExitToAppIcon />
                 </IconButton>
               </Link>
-            </ListItemSecondaryAction>
-          </ListItem>
-        ))}
-      </List>
+            </ListItem>
+          ))}
+        </List>
+      </ContentList>
     </>
   );
 };

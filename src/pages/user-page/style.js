@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const UserContainer = styled.div`
+export const UserContainer = styled.div `
   display: flex;
   height: 100vh;
   align-items: center;
@@ -151,13 +151,13 @@ export const UserContainer = styled.div`
   }
 `;
 
-export const TabContainer = styled.div`
+export const TabContainer = styled.div `
   height: auto;
   min-height: 70vh;
   max-height: 70vh;
 `;
 
-export const ContainerBio = styled.div`
+export const ContainerBio = styled.div `
   display: flex;
   margin-top: 1rem;
   flex-direction: column;

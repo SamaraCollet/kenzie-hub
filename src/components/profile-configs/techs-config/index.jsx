@@ -9,9 +9,12 @@ import {
   FormControl,
   Button,
   IconButton,
+  Avatar,
+  ListItemAvatar,
   Popover,
 } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
+import CodeIcon from "@material-ui/icons/Code";
 import CreateIcon from "@material-ui/icons/Create";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { useSelector } from "react-redux";
@@ -87,6 +90,7 @@ const TechConfig = () => {
         <Content>
           <FormControl>
             <TextField
+              label="Tecnologia"
               name="title"
               value={techInput}
               onChange={(evt) => {
@@ -143,6 +147,11 @@ const TechConfig = () => {
           userInfos.user.techs.map((tech, index) => (
             <>
               <ListItem key={index}>
+                <ListItemAvatar>
+                  <Avatar>
+                    <CodeIcon />
+                  </Avatar>
+                </ListItemAvatar>
                 <ListItemText primary={tech.title} secondary={tech.status} />
                 <IconButton>
                   <CreateIcon

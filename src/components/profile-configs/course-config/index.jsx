@@ -10,6 +10,7 @@ import {
 import CreateIcon from "@material-ui/icons/Create";
 import CheckIcon from "@material-ui/icons/Check";
 import axios from "axios";
+import { Container } from "./styles";
 const CourseConfig = () => {
   const userInfos = useSelector((state) => state.currentUserToken);
   const [isEditable, setIsEditable] = useState(false);
@@ -36,7 +37,7 @@ const CourseConfig = () => {
   };
 
   return (
-    <div>
+    <Container>
       {isEditable ? (
         <form onSubmit={handleSubmit}>
           <FormControl>
@@ -63,14 +64,14 @@ const CourseConfig = () => {
           </Button>
         </form>
       ) : (
-        <div>
+        <div className="editModule">
           <h3>{userInfos.user.course_module}</h3>
           <IconButton onClick={handleEditable}>
             <CreateIcon />
           </IconButton>
         </div>
       )}
-    </div>
+    </Container>
   );
 };
 export default CourseConfig;
